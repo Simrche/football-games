@@ -41,6 +41,7 @@ export default {
     modules: [
         // https://go.nuxtjs.dev/axios
         "@nuxtjs/axios",
+        "@nuxtjs/supabase",
     ],
 
     // Axios module configuration: https://go.nuxtjs.dev/config-axios
