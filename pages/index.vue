@@ -1,28 +1,42 @@
 <template>
-    <div class="flex flex-wrap mt-12 gap-8 justify-center items-center">
+    <div class="flex flex-col mt-12 gap-8 justify-center items-center">
         <div
             v-for="player in players"
             :key="player.id"
-            class="border flex bg-gray-100 border-gray-300 rounded-4xl h-28 px-4 w-64 justify-between hover:shadow-lg"
+            class="border flex bg-gray-100 border-gray-300 rounded-4xl h-28 px-4 w-4/10 items-center justify-around hover:shadow-lg"
         >
-            <div class="flex w-3/10 items-center justify-center">
+            <div class="rounded-full bg-gray-300 h-16 w-16">
                 <img
-                    class="w-9/10"
+                    class="rounded-full"
                     :src="player.photo"
                     :alt="player.fullname"
                     :title="player.fullname"
                 />
             </div>
-            <div class="flex flex-col ml-2 w-7/10 justify-center">
-                <p class="text-md">
-                    {{ player.fullname }}
-                </p>
-                <div class="flex">
-                    <img class="h-5 w-5" :src="player.team_photo" alt="" />
-                    <p class="text-sm ml-2">
-                        {{ player.team_name }}
-                    </p>
-                </div>
+            <div
+                class="rounded-full flex font-bold bg-gray-300 h-16 w-16 items-center justify-center"
+            >
+                {{ player.nationality.toUpperCase().slice(0, 2) }}
+            </div>
+            <div
+                class="rounded-full flex font-bold bg-gray-300 h-16 w-16 items-center justify-center"
+            >
+                {{ player.age }}
+            </div>
+            <div
+                class="rounded-full flex font-bold bg-gray-300 h-16 w-16 items-center justify-center"
+            >
+                <img
+                    class="rounded-full w-2/4"
+                    :src="player.league_photo"
+                    :alt="player.league_name"
+                    :title="player.league_name"
+                />
+            </div>
+            <div
+                class="rounded-full flex font-bold bg-gray-300 h-16 w-16 items-center justify-center"
+            >
+                {{ positionDict[player.position] }}
             </div>
         </div>
     </div>
@@ -30,6 +44,7 @@
 
 <script lang="ts" setup>
 import { onMounted, ref } from "@nuxtjs/composition-api";
+import { uniqBy } from "lodash";
 import { useSupabase } from "~/utils";
 import { Player } from "~/utils/types";
 
@@ -41,6 +56,10 @@ const players = ref<Player[]>([]);
 
 onMounted(async () => {
     await fetchPlayers();
+
+    console.log(
+        uniqBy(players.value, "nationality").map((player) => player.nationality)
+    );
 });
 
 async function fetchPlayers() {
@@ -55,6 +74,13 @@ async function fetchPlayers() {
             "Bundesliga",
         ]);
 
-    players.value = data;
+    players.value = data as Player[];
 }
+
+const positionDict: Record<string, string> = {
+    Attacker: "FW",
+    Midfielder: "MF",
+    Defender: "DF",
+    Goalkeeper: "GK",
+};
 </script>
