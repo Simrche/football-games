@@ -1,105 +1,81 @@
 <template>
-    <div class="flex flex-col py-12 gap-6 justify-center items-center">
-        <div v-for="player in players" :key="player.id" class="w-4/10">
-            <div class="font-bold text-center text-lg w-full">
-                {{ player.fullname }}
-            </div>
-            <div
-                class="border flex bg-gray-100 border-gray-300 rounded-4xl h-28 mt-2 px-4 items-center justify-around hover:shadow-lg"
+    <div
+        class="flex flex-col bg-gray-50 min-h-100vh w-full py-12 gap-6 items-center"
+    >
+        <div class="w-4/10">
+            <b-autocomplete
+                class="w-full"
+                rounded
+                v-model="search"
+                :data="filteredPlayers"
+                placeholder="Select a player"
+                icon="magnify"
+                @select="
+                    (option) =>
+                        option ? selectedPlayers.unshift(option) : undefined
+                "
+                field="fullname"
             >
-                <div class="rounded-full bg-gray-300 h-16 w-16">
-                    <img
-                        class="rounded-full"
-                        :src="player.photo"
-                        :alt="player.fullname"
-                        :title="player.fullname"
-                    />
-                </div>
-                <div
-                    class="rounded-full flex font-bold bg-gray-300 h-16 w-16 items-center justify-center"
-                >
-                    <img
-                        class="rounded-full w-1/2"
-                        :src="player.league_photo"
-                        :alt="player.league_name"
-                        :title="player.league_name"
-                    />
-                </div>
-                <div
-                    class="rounded-full flex font-bold bg-gray-300 h-16 w-16 items-center justify-center"
-                >
-                    <img
-                        class="w-1/2"
-                        :src="player.team_photo"
-                        :alt="player.team_name"
-                        :title="player.team_name"
-                    />
-                </div>
-                <div
-                    class="rounded-full flex font-bold bg-gray-300 h-16 w-16 items-center justify-center"
-                >
-                    <img
-                        class="w-1/2"
-                        :src="`https://media-4.api-sports.io/flags/${
-                            iso3311a2.getCode(player.nationality) ??
-                            nationalityDict[player.nationality]
-                        }.svg`"
-                        alt=""
-                    />
-                </div>
-                <div
-                    class="rounded-full flex font-bold bg-gray-300 h-16 w-16 items-center justify-center"
-                >
-                    {{ positionDict[player.position] }}
-                </div>
-            </div>
+                <template #empty>No results found</template>
+            </b-autocomplete>
         </div>
+        <PlayerRow
+            v-for="player in selectedPlayers"
+            :key="player.id"
+            class="w-4/10"
+            :player="player"
+            :player-to-guess="playerToGuess"
+        />
     </div>
 </template>
 
 <script lang="ts" setup>
-import { onMounted, ref } from "@nuxtjs/composition-api";
-import * as iso3311a2 from "iso-3166-1-alpha-2";
-import { uniqBy } from "lodash";
+import { computed, onMounted, ref } from "@nuxtjs/composition-api";
 import { useSupabase } from "~/utils";
 import { Player } from "~/utils/types";
 
 const supabase = useSupabase();
 
 const players = ref<Player[]>([]);
+const search = ref<string>("");
+const selectedPlayers = ref<Player[]>([]);
+const playerToGuess = ref<Player>();
 
 onMounted(async () => {
     await fetchPlayers();
 
-    console.log(
-        uniqBy(players.value, "nationality").map((player) => player.nationality)
-    );
+    playerToGuess.value =
+        players.value[Math.floor(Math.random() * players.value.length)];
 });
 
 async function fetchPlayers() {
-    const { data, error } = await supabase
-        .from("players")
-        .select()
-        .in("league_name", [
-            "Premier League",
-            "Ligue 1",
-            "Serie A",
-            "La Liga",
-            "Bundesliga",
-        ]);
+    const { data, error } = await supabase.from("players").select();
 
     players.value = data as Player[];
 }
 
-const positionDict: Record<string, string> = {
-    Attacker: "FW",
-    Midfielder: "MF",
-    Defender: "DF",
-    Goalkeeper: "GK",
-};
+const filteredPlayers = computed(() => {
+    return players.value.filter((player) => {
+        if (selectedPlayers.value.includes(player)) return false;
 
-const nationalityDict: Record<string, string> = {
-    England: "GB",
-    "Korea Republic": "KR",
-};
+        return (
+            player.firstname
+                ?.toString()
+                .normalize("NFD")
+                .replace(/[\u0300-\u036f]/g, "")
+                .toLowerCase()
+                .indexOf(search.value.toLowerCase()) >= 0 ||
+            player.lastname
+                ?.toString()
+                .normalize("NFD")
+                .toLowerCase()
+                .indexOf(search.value.toLowerCase()) >= 0 ||
+            player.fullname
+                ?.toString()
+                .replace(/[\u0300-\u036f]/g, "")
+                .toLowerCase()
+                .indexOf(search.value.toLowerCase()) >= 0
+        );
+    });
+});
 </script>
