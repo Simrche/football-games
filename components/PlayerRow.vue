@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="font-bold text-center text-lg w-full">
+        <div class="font-bold text-center text-lg w-full" v-if="showTitle">
             {{ player.fullname }}
         </div>
         <div
@@ -92,10 +92,16 @@ import { onMounted, ref } from "@nuxtjs/composition-api";
 import * as iso3311a2 from "iso-3166-1-alpha-2";
 import { Player } from "~/utils/types";
 
-defineProps<{
-    player: Player;
-    playerToGuess: Player;
-}>();
+withDefaults(
+    defineProps<{
+        player: Player;
+        playerToGuess: Player;
+        showTitle: boolean;
+    }>(),
+    {
+        showTitle: true,
+    }
+);
 
 onMounted(() => {
     setTimeout(() => (showParts.value.league = true), 6 * 100);
@@ -115,6 +121,8 @@ const nationalityDict: Record<string, string> = {
     England: "GB",
     USA: "US",
     "Korea Republic": "KR",
+    "Congo DR": "CD",
+    Türkiye: "TR",
 };
 
 const showParts = ref<Record<string, boolean>>({
