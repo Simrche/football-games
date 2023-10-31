@@ -118,11 +118,15 @@ const positionDict: Record<string, string> = {
 };
 
 const nationalityDict: Record<string, string> = {
-    England: "GB",
+    England: "GB-ENG",
     USA: "US",
     "Korea Republic": "KR",
     "Congo DR": "CD",
     Türkiye: "TR",
+    Scotland: "GB-SCT",
+    "Northern Ireland": "GB-NIR",
+    "Republic of Ireland": "IE",
+    Czechia: "CZ",
 };
 
 const showParts = ref<Record<string, boolean>>({

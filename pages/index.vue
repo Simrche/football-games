@@ -58,7 +58,7 @@
         />
         <div class="flex mt-8 w-2/10 justify-center">
             <BButton @click="restart()" type="is-info" rounded size="is-medium">
-                Rejouer
+                Restart
             </BButton>
         </div>
     </div>
