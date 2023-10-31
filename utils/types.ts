@@ -14,4 +14,5 @@ export type Player = {
     league_country_flag: string;
     league_photo: string;
     api_player_id: number;
+    rate: number;
 };

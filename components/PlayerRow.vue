@@ -96,7 +96,7 @@ withDefaults(
     defineProps<{
         player: Player;
         playerToGuess: Player;
-        showTitle: boolean;
+        showTitle?: boolean;
     }>(),
     {
         showTitle: true,
@@ -127,6 +127,9 @@ const nationalityDict: Record<string, string> = {
     "Northern Ireland": "GB-NIR",
     "Republic of Ireland": "IE",
     Czechia: "CZ",
+    "North Macedonia": "MK",
+    Russia: "RU",
+    Wales: "GB-WLS",
 };
 
 const showParts = ref<Record<string, boolean>>({

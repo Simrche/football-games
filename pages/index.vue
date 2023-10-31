@@ -66,7 +66,7 @@
 
 <script lang="ts" setup>
 import { computed, onMounted, ref } from "@nuxtjs/composition-api";
-import { useSupabase } from "~/utils";
+import { normalizeString, useSupabase } from "~/utils";
 import { Player } from "~/utils/types";
 
 const supabase = useSupabase();
@@ -83,11 +83,13 @@ const selectedPlayersCount = computed(() => selectedPlayers.value.length);
 onMounted(async () => {
     await fetchPlayers();
 
+    // await ratePlayers();
+
     pickPlayerToGuess();
 });
 
 async function fetchPlayers() {
-    const { data, error } = await supabase.from("players").select();
+    const { data } = await supabase.from("players").select();
 
     players.value = data as Player[];
 }
@@ -99,18 +101,24 @@ const filteredPlayers = computed(() => {
         return (
             player.firstname
                 ?.toString()
-                .normalize("NFD")
                 .replace(/[\u0300-\u036f]/g, "")
                 .toLowerCase()
                 .indexOf(search.value.toLowerCase()) >= 0 ||
             player.lastname
                 ?.toString()
-                .normalize("NFD")
                 .toLowerCase()
                 .indexOf(search.value.toLowerCase()) >= 0 ||
             player.fullname
                 ?.toString()
-                .replace(/[\u0300-\u036f]/g, "")
+                .toLowerCase()
+                .indexOf(search.value.toLowerCase()) >= 0 ||
+            normalizeString(player.firstname?.toString())
+                .toLowerCase()
+                .indexOf(search.value.toLowerCase()) >= 0 ||
+            normalizeString(player.lastname?.toString())
+                .toLowerCase()
+                .indexOf(search.value.toLowerCase()) >= 0 ||
+            normalizeString(player.fullname?.toString())
                 .toLowerCase()
                 .indexOf(search.value.toLowerCase()) >= 0
         );
@@ -136,8 +144,14 @@ function select(player: Player) {
 }
 
 function pickPlayerToGuess() {
+    const playerWithMinimumRate = players.value.filter(
+        (player) => player.rate > 81
+    );
+
     playerToGuess.value =
-        players.value[Math.floor(Math.random() * players.value.length)];
+        playerWithMinimumRate[
+            Math.floor(Math.random() * playerWithMinimumRate.length)
+        ];
 }
 
 function restart() {
@@ -145,6 +159,32 @@ function restart() {
     pickPlayerToGuess();
     state.value = "playing";
 }
+
+// async function ratePlayers() {
+//     const top300 = top300Player.map((player) => getLastname(player.name));
+
+//     const playerToRate = players.value.filter((player) =>
+//         top300.includes(player.lastname)
+//     );
+
+//     for (const player of playerToRate) {
+//         const rate = top300Player.find(
+//             (playerOfTheTop300) =>
+//                 getLastname(playerOfTheTop300.name) === player.lastname
+//         )?.rate;
+
+//         if (!rate) continue;
+
+//         console.log(player.fullname, rate);
+
+//         await supabase
+//             .from("players")
+//             .update({
+//                 rate,
+//             })
+//             .eq("id", player.id);
+//     }
+// }
 </script>
 
 <style>
