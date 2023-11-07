@@ -1,4 +1,5 @@
 import { useContext } from "@nuxtjs/composition-api";
+import * as iso3311a2 from "iso-3166-1-alpha-2";
 
 export function useSupabase() {
     const { $supabase } = useContext();
@@ -13,6 +14,34 @@ export function normalizeString(string: string | undefined) {
         .split("")
         .map((letter) => (letterDict[letter] ? letterDict[letter] : letter))
         .join("");
+}
+
+export const positionDict: Record<string, string> = {
+    Attacker: "FW",
+    Midfielder: "MF",
+    Defender: "DF",
+    Goalkeeper: "GK",
+};
+
+export const nationalityDict: Record<string, string> = {
+    England: "GB-ENG",
+    USA: "US",
+    "Korea Republic": "KR",
+    "Congo DR": "CD",
+    Türkiye: "TR",
+    Scotland: "GB-SCT",
+    "Northern Ireland": "GB-NIR",
+    "Republic of Ireland": "IE",
+    Czechia: "CZ",
+    "North Macedonia": "MK",
+    Russia: "RU",
+    Wales: "GB-WLS",
+};
+
+export function getNationalityFlagUrl(nationality: string) {
+    return `https://media-4.api-sports.io/flags/${
+        iso3311a2.getCode(nationality) ?? nationalityDict[nationality]
+    }.svg`;
 }
 
 const letterDict: Record<string, string> = {

@@ -62,10 +62,7 @@
             >
                 <img
                     class="w-1/2"
-                    :src="`https://media-4.api-sports.io/flags/${
-                        iso3311a2.getCode(player.nationality) ??
-                        nationalityDict[player.nationality]
-                    }.svg`"
+                    :src="getNationalityFlagUrl(player.nationality)"
                     alt=""
                 />
             </div>
@@ -89,7 +86,7 @@
 
 <script setup lang="ts">
 import { onMounted, ref } from "@nuxtjs/composition-api";
-import * as iso3311a2 from "iso-3166-1-alpha-2";
+import { getNationalityFlagUrl, positionDict } from "~/utils";
 import { Player } from "~/utils/types";
 
 withDefaults(
@@ -109,28 +106,6 @@ onMounted(() => {
     setTimeout(() => (showParts.value.nationality = true), 18 * 100);
     setTimeout(() => (showParts.value.position = true), 24 * 100);
 });
-
-const positionDict: Record<string, string> = {
-    Attacker: "FW",
-    Midfielder: "MF",
-    Defender: "DF",
-    Goalkeeper: "GK",
-};
-
-const nationalityDict: Record<string, string> = {
-    England: "GB-ENG",
-    USA: "US",
-    "Korea Republic": "KR",
-    "Congo DR": "CD",
-    Türkiye: "TR",
-    Scotland: "GB-SCT",
-    "Northern Ireland": "GB-NIR",
-    "Republic of Ireland": "IE",
-    Czechia: "CZ",
-    "North Macedonia": "MK",
-    Russia: "RU",
-    Wales: "GB-WLS",
-};
 
 const showParts = ref<Record<string, boolean>>({
     photo: true,
