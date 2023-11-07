@@ -86,7 +86,8 @@
 
 <script setup lang="ts">
 import { onMounted, ref } from "@nuxtjs/composition-api";
-import { getNationalityFlagUrl, positionDict } from "~/utils";
+import { getNationalityFlagUrl } from "~/utils";
+import { positionDict } from "~/utils/dicts";
 import { Player } from "~/utils/types";
 
 withDefaults(

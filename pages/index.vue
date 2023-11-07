@@ -99,12 +99,8 @@
 
 <script lang="ts" setup>
 import { computed, onMounted, ref } from "@nuxtjs/composition-api";
-import {
-    getNationalityFlagUrl,
-    normalizeString,
-    positionDict,
-    useSupabase,
-} from "~/utils";
+import { getNationalityFlagUrl, normalizeString, useSupabase } from "~/utils";
+import { positionDict } from "~/utils/dicts";
 import { Player } from "~/utils/types";
 
 const supabase = useSupabase();
