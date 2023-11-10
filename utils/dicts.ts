@@ -18,6 +18,7 @@ export const nationalityDict: Record<string, string> = {
     "North Macedonia": "MK",
     Russia: "RU",
     Wales: "GB-WLS",
+    Venezuela: "VE",
 };
 
 export const letterDict: Record<string, string> = {
