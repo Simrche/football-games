@@ -45,7 +45,7 @@
                                 />
                                 <img
                                     :src="player.option.team_photo"
-                                    class="rounded-full h-4 w-4"
+                                    class="h-4 w-4"
                                     :alt="player.option.team_name"
                                 />
                                 <p>{{ player.option.team_name }}</p>

@@ -8,17 +8,17 @@ export const positionDict: Record<string, string> = {
 export const nationalityDict: Record<string, string> = {
     England: "GB-ENG",
     USA: "US",
-    "Korea Republic": "KR",
-    "Congo DR": "CD",
     Türkiye: "TR",
     Scotland: "GB-SCT",
-    "Northern Ireland": "GB-NIR",
-    "Republic of Ireland": "IE",
     Czechia: "CZ",
-    "North Macedonia": "MK",
     Russia: "RU",
     Wales: "GB-WLS",
     Venezuela: "VE",
+    "Korea Republic": "KR",
+    "Congo DR": "CD",
+    "Northern Ireland": "GB-NIR",
+    "Republic of Ireland": "IE",
+    "North Macedonia": "MK",
 };
 
 export const letterDict: Record<string, string> = {
