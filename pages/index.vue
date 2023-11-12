@@ -129,34 +129,36 @@ async function fetchPlayers() {
 }
 
 const filteredPlayers = computed(() => {
-    return players.value.filter((player) => {
-        if (selectedPlayers.value.includes(player)) return false;
+    return players.value
+        .filter((player) => {
+            if (selectedPlayers.value.includes(player)) return false;
 
-        return (
-            player.firstname
-                ?.toString()
-                .replace(/[\u0300-\u036f]/g, "")
-                .toLowerCase()
-                .indexOf(search.value.toLowerCase()) >= 0 ||
-            player.lastname
-                ?.toString()
-                .toLowerCase()
-                .indexOf(search.value.toLowerCase()) >= 0 ||
-            player.fullname
-                ?.toString()
-                .toLowerCase()
-                .indexOf(search.value.toLowerCase()) >= 0 ||
-            normalizeString(player.firstname?.toString())
-                .toLowerCase()
-                .indexOf(search.value.toLowerCase()) >= 0 ||
-            normalizeString(player.lastname?.toString())
-                .toLowerCase()
-                .indexOf(search.value.toLowerCase()) >= 0 ||
-            normalizeString(player.fullname?.toString())
-                .toLowerCase()
-                .indexOf(search.value.toLowerCase()) >= 0
-        );
-    });
+            return (
+                player.firstname
+                    ?.toString()
+                    .replace(/[\u0300-\u036f]/g, "")
+                    .toLowerCase()
+                    .indexOf(search.value.toLowerCase()) >= 0 ||
+                player.lastname
+                    ?.toString()
+                    .toLowerCase()
+                    .indexOf(search.value.toLowerCase()) >= 0 ||
+                player.fullname
+                    ?.toString()
+                    .toLowerCase()
+                    .indexOf(search.value.toLowerCase()) >= 0 ||
+                normalizeString(player.firstname?.toString())
+                    .toLowerCase()
+                    .indexOf(search.value.toLowerCase()) >= 0 ||
+                normalizeString(player.lastname?.toString())
+                    .toLowerCase()
+                    .indexOf(search.value.toLowerCase()) >= 0 ||
+                normalizeString(player.fullname?.toString())
+                    .toLowerCase()
+                    .indexOf(search.value.toLowerCase()) >= 0
+            );
+        })
+        .splice(0, 30);
 });
 
 function select(player: Player) {
