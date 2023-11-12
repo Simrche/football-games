@@ -14,6 +14,7 @@ export const nationalityDict: Record<string, string> = {
     Russia: "RU",
     Wales: "GB-WLS",
     Venezuela: "VE",
+    Iran: "IR",
     "Korea Republic": "KR",
     "Congo DR": "CD",
     "Northern Ireland": "GB-NIR",
