@@ -1,9 +1,9 @@
 <template>
     <div
-        class="flex flex-col bg-gray-50 min-h-100vh w-full py-12 gap-6 items-center"
+        class="flex flex-col min-h-screen bg-gray-50 w-full py-12 gap-6 items-center"
         v-if="state === 'playing' && playerToGuess"
     >
-        <div class="flex w-4/10 gap-x-2 items-center">
+        <div class="flex w-5/12 gap-x-2 items-center">
             <div class="border rounded-xl py-2 px-4">
                 <p class="text-xl">
                     {{ selectedPlayersCount }}/{{ maximumTrials }}
@@ -62,14 +62,14 @@
         <PlayerRow
             v-for="player in selectedPlayers"
             :key="player.id"
-            class="w-4/10"
+            class="w-5/12"
             :player="player"
             :player-to-guess="playerToGuess"
         />
     </div>
     <div
         v-else-if="(state === 'win' || state === 'loose') && playerToGuess"
-        class="flex flex-col min-h-100vh w-full items-center justify-center"
+        class="flex flex-col min-h-screen w-full items-center justify-center"
     >
         <p class="text-2xl" v-if="state === 'win'">✅ Congrats !</p>
         <p class="text-2xl" v-else>❌ You loose !</p>
@@ -85,11 +85,11 @@
         />
         <PlayerRow
             :player="playerToGuess"
-            class="mt-2 w-4/10"
+            class="mt-2 w-5/12"
             :show-title="false"
             :player-to-guess="playerToGuess"
         />
-        <div class="flex mt-8 w-2/10 justify-center">
+        <div class="flex mt-8 w-3/12 justify-center">
             <BButton @click="restart()" type="is-info" rounded size="is-medium">
                 Restart
             </BButton>

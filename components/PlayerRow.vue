@@ -4,7 +4,7 @@
             {{ player.fullname }}
         </div>
         <div
-            class="border flex bg-gray-100 border-gray-300 rounded-4xl h-28 mt-2 px-4 items-center justify-around hover:shadow-lg"
+            class="border flex bg-gray-100 border-gray-300 rounded-2xl h-28 mt-2 px-4 items-center justify-around hover:shadow-lg"
         >
             <div v-if="showParts.photo" class="rounded-full h-16 w-16">
                 <img
