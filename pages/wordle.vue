@@ -9,52 +9,12 @@
                     {{ selectedPlayersCount }}/{{ maximumTrials }}
                 </p>
             </div>
-            <b-autocomplete
-                class="w-full autocomplete"
-                rounded
-                v-model="search"
-                :data="filteredPlayers"
-                placeholder="Select a player"
-                icon="magnify"
-                :clear-on-select="true"
+            <PlayerAutoComplete
+                :players="filteredPlayers"
+                :model-value="search"
+                @update:modelValue="search = $event"
                 @select="select($event)"
-                field="fullname"
-            >
-                <template slot-scope="player">
-                    <div class="flex gap-2 items-center">
-                        <img
-                            :src="player.option.photo"
-                            class="rounded-full h-12 w-12"
-                            :alt="player.option.fullname"
-                        />
-                        <div>
-                            <p class="font-bold text-md">
-                                {{ player.option.fullname }} ({{
-                                    positionDict[player.option.position]
-                                }})
-                            </p>
-                            <div class="flex gap-2 items-center">
-                                <img
-                                    :src="
-                                        getNationalityFlagUrl(
-                                            player.option.nationality
-                                        )
-                                    "
-                                    class="h-4 w-4"
-                                    :alt="player.option.nationality"
-                                />
-                                <img
-                                    :src="player.option.team_photo"
-                                    class="h-4 w-4"
-                                    :alt="player.option.team_name"
-                                />
-                                <p>{{ player.option.team_name }}</p>
-                            </div>
-                        </div>
-                    </div>
-                </template>
-                <template #empty>No results found</template>
-            </b-autocomplete>
+            />
             <BButton type="is-danger is-light" rounded @click="state = 'loose'">
                 Give up
             </BButton>
@@ -99,8 +59,7 @@
 
 <script lang="ts" setup>
 import { computed, onMounted, ref } from "@nuxtjs/composition-api";
-import { getNationalityFlagUrl, normalizeString, useSupabase } from "~/utils";
-import { positionDict } from "~/utils/dicts";
+import { normalizeString, useSupabase } from "~/utils";
 import { Player } from "~/utils/types";
 
 const supabase = useSupabase();
@@ -222,10 +181,3 @@ function restart() {
 //     }
 // }
 </script>
-
-<style>
-input:focus {
-    outline-color: transparent;
-    outline-style: none;
-}
-</style>
