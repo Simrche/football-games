@@ -116,14 +116,15 @@ const guessesCount = computed(() => guesses.value.length);
 const filteredLogos = computed(() => {
     return logos.value.filter(
         (logo) =>
-            logo.team_name
+            !guesses.value.includes(logo) &&
+            (logo.team_name
                 ?.toString()
                 .replace(/[\u0300-\u036f]/g, "")
                 .toLowerCase()
                 .indexOf(search.value.toLowerCase()) >= 0 ||
-            normalizeString(logo.team_name?.toString())
-                .toLowerCase()
-                .indexOf(search.value.toLowerCase()) >= 0
+                normalizeString(logo.team_name?.toString())
+                    .toLowerCase()
+                    .indexOf(search.value.toLowerCase()) >= 0)
     );
 });
 
