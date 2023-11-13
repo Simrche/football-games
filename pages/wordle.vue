@@ -117,13 +117,11 @@ const filteredPlayers = computed(() => {
                     .indexOf(search.value.toLowerCase()) >= 0
             );
         })
-        .splice(0, 30);
+        .splice(0, 15);
 });
 
 function select(player: Player) {
     if (!player) return;
-
-    search.value = "";
 
     selectedPlayers.value.unshift(player);
 

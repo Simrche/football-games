@@ -6,8 +6,9 @@
         :data="players"
         placeholder="Select a player"
         icon="magnify"
-        @select="$emit('select', $event)"
         field="fullname"
+        :clear-on-select="true"
+        @select="$emit('select', $event)"
     >
         <template slot-scope="player">
             <div class="flex gap-2 items-center">
