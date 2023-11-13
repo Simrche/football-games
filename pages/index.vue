@@ -10,7 +10,7 @@
         >
         <NuxtLink
             to="/logo"
-            class="text-center mt-28 text-lg hover:underline cursor-default"
+            class="text-center text-lg hover:underline cursor-default"
             >Try football Logos</NuxtLink
         >
     </div>
