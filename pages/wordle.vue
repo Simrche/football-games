@@ -76,8 +76,6 @@ const selectedPlayersCount = computed(() => selectedPlayers.value.length);
 onMounted(async () => {
     await fetchPlayers();
 
-    // await ratePlayers();
-
     pickPlayerToGuess();
 });
 
@@ -152,30 +150,4 @@ function restart() {
     pickPlayerToGuess();
     state.value = "playing";
 }
-
-// async function ratePlayers() {
-//     const top300 = top300Player.map((player) => getLastname(player.name));
-
-//     const playerToRate = players.value.filter((player) =>
-//         top300.includes(player.lastname)
-//     );
-
-//     for (const player of playerToRate) {
-//         const rate = top300Player.find(
-//             (playerOfTheTop300) =>
-//                 getLastname(playerOfTheTop300.name) === player.lastname
-//         )?.rate;
-
-//         if (!rate) continue;
-
-//         console.log(player.fullname, rate);
-
-//         await supabase
-//             .from("players")
-//             .update({
-//                 rate,
-//             })
-//             .eq("id", player.id);
-//     }
-// }
 </script>
