@@ -42,3 +42,40 @@ const games = [
     },
 ];
 </script>
+
+<style>
+/* // scrollbar style */
+
+    ::-webkit-scrollbar, ::-webkit-scrollbar-track  {
+        visibility: visible;
+        width: 5px;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background-color: var(--color-gray);
+        border-radius: 100vw;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+        background-color: rgb(175, 175, 175);
+    }
+
+    ::-webkit-scrollbar-thumb:active {
+        background-color: rgb(150, 150, 150);
+    }
+
+
+    body::webkit-scrollbar {
+        width: 12px;
+    }
+
+    body::-webkit-scrollbar-track {
+        -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
+        border-radius: 10px;
+    }
+
+    body::-webkit-scrollbar-thumb {
+        border-radius: 10px;
+        -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
+    }
+</style>
