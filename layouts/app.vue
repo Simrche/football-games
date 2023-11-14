@@ -34,11 +34,11 @@ const route = useRoute();
 const games = [
     {
         title: "Wordle",
-        path: "wordle",
+        path: "/wordle",
     },
     {
         title: "Blur",
-        path: "blur",
+        path: "/blur",
     },
 ];
 </script>
