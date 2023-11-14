@@ -125,11 +125,13 @@ function select(player: Player) {
 
     if (playerToGuess.value && player.id === playerToGuess.value.id) {
         state.value = "win";
+        search.value = "";
         return;
     }
 
     if (selectedPlayersCount.value >= maximumTrials) {
         state.value = "loose";
+        search.value = "";
         return;
     }
 }
