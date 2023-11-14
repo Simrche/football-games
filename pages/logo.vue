@@ -55,7 +55,7 @@
                     <img
                         class="w-16 h-16"
                         :src="guess.team_photo"
-                        :alt="logoToGuess.team_name"
+                        :alt="guess.team_name"
                     />
                 </div>
             </div>
