@@ -16,3 +16,9 @@ export type Player = {
     api_player_id: number;
     rate: number;
 };
+
+export type PlayerPhoto = {
+    id: number;
+    player_id: number;
+    photo: string;
+};
