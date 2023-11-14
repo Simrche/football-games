@@ -13,14 +13,18 @@
                 'blur-2': selectedPlayersCount === 4,
             }"
         >
-            <img :src="require(`~/assets/img/blur/${photoToGuess.photo}.jpg`)" />
+            <img
+                :src="require(`~/assets/img/blur/${photoToGuess.photo}.jpg`)"
+            />
         </div>
 
         <div class="flex w-5/12 gap-x-2 items-center justify-center">
             <div class="border rounded-xl py-2 px-4">
-                <p class="text-xl">{{ selectedPlayersCount }}/{{ maximumTrials }}</p>
+                <p class="text-xl">
+                    {{ selectedPlayersCount }}/{{ maximumTrials }}
+                </p>
             </div>
-            
+
             <PlayerAutoComplete
                 :players="filteredPlayers"
                 :model-value="search"
@@ -77,8 +81,8 @@
 
 <script lang="ts" setup>
 import { computed, onMounted, ref } from "@nuxtjs/composition-api";
-import { normalizeString, useSupabase } from '~/utils';
-import { Player, PlayerPhoto } from '~/utils/types';
+import { normalizeString, useSupabase } from "~/utils";
+import { Player, PlayerPhoto } from "~/utils/types";
 
 const supabase = useSupabase();
 
@@ -91,7 +95,6 @@ const state = ref<"playing" | "win" | "loose">("playing");
 const maximumTrials = 5;
 
 const selectedPlayersCount = computed(() => selectedPlayers.value.length);
-
 
 onMounted(async () => {
     await fetchPlayers();
@@ -111,21 +114,27 @@ function select(player: Player) {
 
     if (photoToGuess.value && player.id === photoToGuess.value.player_id) {
         state.value = "win";
+        search.value = "";
         return;
     }
 
     if (selectedPlayersCount.value >= maximumTrials) {
         state.value = "loose";
+        search.value = "";
         return;
     }
 }
 
 async function pickPhoto() {
-    const { data } = await supabase.from("players_photos").select("*, players(*)");
+    const { data } = await supabase
+        .from("players_photos")
+        .select("*, players(*)");
     playersPhotos.value = data as PlayerPhoto[];
 
     photoToGuess.value =
-        playersPhotos.value[Math.floor(Math.random() * playersPhotos.value.length)];
+        playersPhotos.value[
+            Math.floor(Math.random() * playersPhotos.value.length)
+        ];
 }
 
 const filteredPlayers = computed(() => {
@@ -166,5 +175,4 @@ function restart() {
     pickPhoto();
     state.value = "playing";
 }
-
 </script>

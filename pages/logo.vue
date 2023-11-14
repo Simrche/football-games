@@ -154,6 +154,7 @@ function select(logo: Logo) {
 
     if (guessesCount.value >= maximumTrials) {
         state.value = "loose";
+        search.value = "";
         return;
     }
 }
