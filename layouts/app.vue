@@ -40,9 +40,5 @@ const games = [
         title: "Blur",
         path: "blur",
     },
-    {
-        title: "Logo",
-        path: "logo",
-    },
 ];
 </script>

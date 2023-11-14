@@ -151,3 +151,11 @@ function restart() {
     state.value = "playing";
 }
 </script>
+
+<script lang="ts">
+import { defineComponent } from "@nuxtjs/composition-api";
+
+export default defineComponent({
+    layout: "app",
+});
+</script>
