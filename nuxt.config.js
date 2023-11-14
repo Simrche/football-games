@@ -17,7 +17,9 @@ export default {
             { hid: "description", name: "description", content: "" },
             { name: "format-detection", content: "telephone=no" },
         ],
-        link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }],
+        link: [
+            { rel: "icon", type: "image/png", href: "/app/football_ball.png" },
+        ],
     },
 
     // Global CSS: https://go.nuxtjs.dev/config-css
@@ -34,7 +36,7 @@ export default {
         // https://go.nuxtjs.dev/typescript
         "@nuxt/typescript-build",
         "@nuxtjs/composition-api/module",
-        '@nuxtjs/tailwindcss'
+        "@nuxtjs/tailwindcss",
     ],
 
     // Modules: https://go.nuxtjs.dev/config-modules
