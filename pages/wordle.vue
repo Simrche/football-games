@@ -1,6 +1,10 @@
 <template>
     <div v-if="!playerToGuess" class="flex items-center justify-center">
-        <p class="text-lg font-bold">Loading ...</p>
+        <img
+            src="~/static/app/football_ball.png"
+            alt="Loading"
+            class="w-12 h-12 animate-spin"
+        />
     </div>
     <div
         class="flex flex-col bg-gray-50 w-full py-12 gap-6 items-center"

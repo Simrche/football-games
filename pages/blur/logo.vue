@@ -1,6 +1,10 @@
 <template>
     <div v-if="!logoToGuess" class="flex items-center justify-center">
-        <p class="text-lg font-bold">Loading ...</p>
+        <img
+            src="~/static/app/football_ball.png"
+            alt="Loading"
+            class="w-12 h-12 animate-spin"
+        />
     </div>
     <div
         v-else-if="state === 'playing'"
