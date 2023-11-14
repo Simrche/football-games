@@ -21,4 +21,5 @@ export type PlayerPhoto = {
     id: number;
     player_id: number;
     photo: string;
+    players: Player;
 };

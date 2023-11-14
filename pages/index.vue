@@ -5,13 +5,18 @@
         </h1>
         <NuxtLink
             to="/wordle"
-            class="text-center mt-28 text-lg hover:underline cursor-default"
+            class="text-center mt-28 text-lg hover:underline"
             >Try football Wordle</NuxtLink
         >
         <NuxtLink
             to="/logo"
-            class="text-center text-lg hover:underline cursor-default"
-            >Try football Logos</NuxtLink
+            class="text-center text-lg hover:underline"
+            >Try Blurred logos</NuxtLink
+        >
+        <NuxtLink
+            to="/blur"
+            class="text-center text-lg hover:underline"
+            >Try Blurred players</NuxtLink
         >
     </div>
 </template>
