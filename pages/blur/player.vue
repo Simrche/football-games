@@ -57,7 +57,7 @@
 
     <div
         v-else-if="(state === 'win' || state === 'loose') && photoToGuess"
-        class="flex flex-col min-h-screen w-full items-center justify-center"
+        class="flex flex-col w-full items-center justify-center"
     >
         <p class="text-2xl" v-if="state === 'win'">✅ Congrats !</p>
         <p class="text-2xl" v-else>❌ You loose !</p>

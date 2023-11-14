@@ -1,6 +1,6 @@
 <template>
     <div
-        class="flex flex-col min-h-screen bg-gray-50 w-full py-12 gap-6 items-center"
+        class="flex flex-col bg-gray-50 w-full py-12 gap-6 items-center"
         v-if="state === 'playing' && playerToGuess"
     >
         <div class="flex w-5/12 gap-x-2 items-center">
@@ -29,7 +29,7 @@
     </div>
     <div
         v-else-if="(state === 'win' || state === 'loose') && playerToGuess"
-        class="flex flex-col min-h-screen w-full items-center justify-center"
+        class="flex flex-col w-full items-center justify-center"
     >
         <p class="text-2xl" v-if="state === 'win'">✅ Congrats !</p>
         <p class="text-2xl" v-else>❌ You loose !</p>
