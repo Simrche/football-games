@@ -1,10 +1,6 @@
 <template>
     <div v-if="!playerToGuess" class="flex items-center justify-center">
-        <img
-            src="~/static/app/football_ball.png"
-            alt="Loading"
-            class="w-12 h-12 animate-spin"
-        />
+        <SpinningBall />
     </div>
     <div
         class="flex flex-col bg-gray-50 w-full py-12 gap-6 items-center"
@@ -87,7 +83,10 @@ onMounted(async () => {
 });
 
 async function fetchPlayers() {
-    const { data } = await supabase.from("players").select();
+    const { data } = await supabase
+        .from("players")
+        .select()
+        .neq("is_active", false);
 
     players.value = data as Player[];
 }
