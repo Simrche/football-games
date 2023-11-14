@@ -1,4 +1,6 @@
 <template>
+
+    
     <div
         v-if="logoToGuess && state === 'playing'"
         class="flex flex-col items-center w-full"
@@ -110,6 +112,7 @@ const guesses = ref<Logo[]>([]);
 const search = ref("");
 const maximumTrials = 5;
 const state = ref<"playing" | "win" | "loose">("playing");
+const game = ref<string>();
 
 const guessesCount = computed(() => guesses.value.length);
 
