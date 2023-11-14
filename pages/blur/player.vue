@@ -1,6 +1,9 @@
 <template>
+    <div v-if="!photoToGuess" class="flex items-center justify-center">
+        <p class="text-lg font-bold">Loading ...</p>
+    </div>
     <div
-        v-if="photoToGuess && state === 'playing'"
+        v-else-if="state === 'playing'"
         class="flex flex-col items-center w-full"
     >
         <div
@@ -56,7 +59,7 @@
     </div>
 
     <div
-        v-else-if="(state === 'win' || state === 'loose') && photoToGuess"
+        v-else-if="state === 'win' || state === 'loose'"
         class="flex flex-col w-full items-center justify-center"
     >
         <p class="text-2xl" v-if="state === 'win'">✅ Congrats !</p>
