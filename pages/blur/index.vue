@@ -7,7 +7,7 @@
             class="flex-col w-8/12 md:w-4/12 bg-gray-100 rounded-lg flex font-bold cursor-pointer border hover:shadow-lg group"
         >
             <div
-                class="w-full h-25vh bg-center bg-[length:100%] group-hover:bg-[length:150%] transition-all rounded-t-lg"
+                class="w-full h-20vh bg-center bg-[length:100%] group-hover:bg-[length:150%] transition-all rounded-t-lg"
                 :style="{
                     'background-image': `url(${require('~/static/app/football_logos.jpeg')})`,
                 }"
@@ -21,7 +21,7 @@
             class="flex-col w-8/12 md:w-4/12 bg-gray-100 rounded-lg flex font-bold cursor-pointer border hover:shadow-lg group"
         >
             <div
-                class="w-full h-25vh bg-center bg-[length:100%] group-hover:bg-[length:150%] transition-all rounded-t-lg"
+                class="w-full h-20vh bg-center bg-[length:100%] group-hover:bg-[length:150%] transition-all rounded-t-lg"
                 :style="{
                     'background-image': `url(${require('~/static/app/football_players.jpeg')})`,
                 }"

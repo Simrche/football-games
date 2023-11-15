@@ -6,6 +6,7 @@ module.exports = {
             height: {
                 "33vh": "33vh",
                 "25vh": "25vh",
+                "20vh": "20vh",
                 "8vh": "8vh",
             },
             width: {
