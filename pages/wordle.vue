@@ -3,29 +3,40 @@
         <SpinningBall />
     </div>
     <div
-        class="flex flex-col bg-gray-50 w-full py-12 gap-6 items-center"
+        class="flex flex-col w-full py-12 gap-6 items-center"
         v-else-if="state === 'playing'"
     >
-        <div class="flex w-5/12 gap-x-2 items-center">
-            <div class="border rounded-xl py-2 px-4">
-                <p class="text-xl">
-                    {{ selectedPlayersCount }}/{{ maximumTrials }}
-                </p>
-            </div>
+        <div
+            class="flex gap-y-2 flex-col-reverse md:flex-row w-10/12 md:w-5/12 gap-x-2 items-center"
+        >
             <PlayerAutoComplete
+                class="w-full"
                 :players="filteredPlayers"
                 :model-value="search"
                 @update:modelValue="search = $event"
                 @select="select($event)"
             />
-            <BButton type="is-danger is-light" rounded @click="state = 'loose'">
-                Give up
-            </BButton>
+            <div
+                class="flex items-center justify-between md:justify-normal w-full md:w-fit gap-x-2"
+            >
+                <div class="border rounded-xl py-2 px-4">
+                    <p class="text-xl">
+                        {{ selectedPlayersCount }}/{{ maximumTrials }}
+                    </p>
+                </div>
+                <BButton
+                    type="is-danger is-light"
+                    rounded
+                    @click="state = 'loose'"
+                >
+                    Give up
+                </BButton>
+            </div>
         </div>
         <PlayerRow
             v-for="player in selectedPlayers"
             :key="player.id"
-            class="w-5/12"
+            class="w-10/12 lg:w-5/12"
             :player="player"
             :player-to-guess="playerToGuess"
         />
@@ -48,7 +59,7 @@
         />
         <PlayerRow
             :player="playerToGuess"
-            class="mt-2 w-5/12"
+            class="mt-2 w-10/12 lg:w-5/12"
             :show-title="false"
             :player-to-guess="playerToGuess"
         />

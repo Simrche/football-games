@@ -4,9 +4,12 @@
             {{ player.fullname }}
         </div>
         <div
-            class="border flex bg-gray-100 border-gray-300 rounded-2xl h-28 mt-2 px-4 items-center justify-around hover:shadow-lg"
+            class="border flex bg-gray-100 border-gray-300 rounded-2xl h-20 lg:h-28 mt-2 px-4 items-center justify-around hover:shadow-lg"
         >
-            <div v-if="showParts.photo" class="rounded-full h-16 w-16">
+            <div
+                v-if="showParts.photo"
+                class="rounded-full h-12 w-12 lg:h-16 lg:w-16"
+            >
                 <img
                     class="rounded-full"
                     :src="player.photo"
@@ -16,7 +19,7 @@
             </div>
             <div
                 v-if="showParts.league"
-                class="rounded-full flex font-bold h-16 w-16 items-center justify-center fadeOpacity"
+                class="rounded-full flex font-bold h-12 w-12 lg:h-16 lg:w-16 items-center justify-center fadeOpacity"
                 :class="{
                     'border-2 border-green-500':
                         player.league_name === playerToGuess.league_name,
@@ -31,10 +34,10 @@
                     :title="player.league_name"
                 />
             </div>
-            <div class="h-16 w-16" v-else></div>
+            <div class="h-12 w-12 lg:h-16 lg:w-16" v-else></div>
             <div
                 v-if="showParts.team"
-                class="rounded-full flex font-bold h-16 w-16 items-center justify-center fadeOpacity"
+                class="rounded-full flex font-bold h-12 w-12 lg:h-16 lg:w-16 items-center justify-center fadeOpacity"
                 :class="{
                     'border-2 border-green-500':
                         player.team_name === playerToGuess.team_name,
@@ -49,10 +52,10 @@
                     :title="player.team_name"
                 />
             </div>
-            <div class="h-16 w-16" v-else></div>
+            <div class="h-12 w-12 lg:h-16 lg:w-16" v-else></div>
             <div
                 v-if="showParts.nationality"
-                class="rounded-full flex font-bold h-16 w-16 items-center justify-center fadeOpacity"
+                class="rounded-full flex font-bold h-12 w-12 lg:h-16 lg:w-16 items-center justify-center fadeOpacity"
                 :class="{
                     'border-2 border-green-500':
                         player.nationality === playerToGuess.nationality,
@@ -66,10 +69,10 @@
                     alt=""
                 />
             </div>
-            <div class="h-16 w-16" v-else></div>
+            <div class="h-12 w-12 lg:h-16 lg:w-16" v-else></div>
             <div
                 v-if="showParts.position"
-                class="rounded-full flex font-bold h-16 w-16 items-center justify-center fadeOpacity"
+                class="rounded-full flex font-bold h-12 w-12 lg:h-16 lg:w-16 items-center justify-center fadeOpacity text-sm md:text-base"
                 :class="{
                     'border-2 border-green-500':
                         player.position === playerToGuess.position,
@@ -79,7 +82,7 @@
             >
                 {{ positionDict[player.position] }}
             </div>
-            <div class="h-16 w-16" v-else></div>
+            <div class="h-12 w-12 lg:h-16 lg:w-16" v-else></div>
         </div>
     </div>
 </template>
