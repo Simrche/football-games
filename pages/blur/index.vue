@@ -3,8 +3,8 @@
         class="justify-center items-center gap-y-8 flex flex-col lg:flex-row lg:gap-x-40"
     >
         <NuxtLink
-            to="/blur/player"
-            class="flex-col w-25vw h-33vh bg-gray-100 rounded-lg flex font-bold cursor-pointer border hover:shadow-lg group"
+            to="/blur/logo"
+            class="flex-col w-8/12 md:w-4/12 bg-gray-100 rounded-lg flex font-bold cursor-pointer border hover:shadow-lg group"
         >
             <div
                 class="w-full h-25vh bg-center bg-[length:100%] group-hover:bg-[length:150%] transition-all rounded-t-lg"
@@ -18,7 +18,7 @@
         </NuxtLink>
         <NuxtLink
             to="/blur/player"
-            class="flex-col w-25vw h-33vh bg-gray-100 rounded-lg flex font-bold cursor-pointer border hover:shadow-lg group"
+            class="flex-col w-8/12 md:w-4/12 bg-gray-100 rounded-lg flex font-bold cursor-pointer border hover:shadow-lg group"
         >
             <div
                 class="w-full h-25vh bg-center bg-[length:100%] group-hover:bg-[length:150%] transition-all rounded-t-lg"
