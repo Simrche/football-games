@@ -21,26 +21,36 @@
             />
         </div>
 
-        <div class="flex w-5/12 gap-x-2 items-center justify-center">
-            <div class="border rounded-xl py-2 px-4">
-                <p class="text-xl">
-                    {{ selectedPlayersCount }}/{{ maximumTrials }}
-                </p>
-            </div>
-
+        <div
+            class="flex gap-y-2 flex-col-reverse md:flex-row w-10/12 md:w-5/12 gap-x-2 items-center justify-center"
+        >
             <PlayerAutoComplete
+                class="w-full"
                 :players="filteredPlayers"
                 :model-value="search"
                 @update:modelValue="search = $event"
                 @select="select($event)"
             />
 
-            <BButton type="is-danger is-light" rounded @click="state = 'loose'">
-                Give up
-            </BButton>
+            <div
+                class="flex items-center justify-between md:justify-normal w-full md:w-fit gap-x-2"
+            >
+                <div class="border rounded-xl py-2 px-4">
+                    <p class="text-xl">
+                        {{ selectedPlayersCount }}/{{ maximumTrials }}
+                    </p>
+                </div>
+                <BButton
+                    type="is-danger is-light"
+                    rounded
+                    @click="state = 'loose'"
+                >
+                    Give up
+                </BButton>
+            </div>
         </div>
 
-        <div class="mt-8 flex flex-col w-5/12">
+        <div class="mt-8 flex flex-col w-10/12 md:w-5/12">
             <p class="text-lg font-bold">Guesses</p>
             <div class="w-full grid grid-cols-5">
                 <div
@@ -62,9 +72,9 @@
         v-else-if="state === 'win' || state === 'loose'"
         class="flex flex-col w-full items-center justify-center"
     >
-        <p class="text-2xl" v-if="state === 'win'">✅ Congrats !</p>
-        <p class="text-2xl" v-else>❌ You loose !</p>
-        <p class="text-4xl">
+        <p class="text-xl md:text-2xl" v-if="state === 'win'">✅ Congrats !</p>
+        <p class="text-xl md:text-2xl" v-else>❌ You loose !</p>
+        <p class="text-2xl md:text-4xl text-center">
             The player was
             <span class="font-bold">{{ photoToGuess.players.fullname }}</span>
         </p>

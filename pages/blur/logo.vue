@@ -18,17 +18,17 @@
         >
             <img :src="logoToGuess.team_photo" />
         </div>
-        <div class="flex w-5/12 gap-x-2 items-center justify-center">
-            <div class="border rounded-xl py-2 px-4">
-                <p class="text-xl">{{ guessesCount }}/{{ maximumTrials }}</p>
-            </div>
+        <div
+            class="flex gap-y-2 flex-col-reverse md:flex-row w-10/12 md:w-5/12 gap-x-2 items-center justify-center"
+        >
             <BAutocomplete
-                class="w-5/12"
+                class="w-full"
                 v-model="search"
                 :data="filteredLogos"
                 placeholder="Select a logo"
                 icon="magnify"
                 :clear-on-select="true"
+                rounded
                 @select="select($event)"
             >
                 <template slot-scope="logo">
@@ -43,11 +43,24 @@
                 </template>
                 <template #empty>No results found</template></BAutocomplete
             >
-            <BButton type="is-danger is-light" rounded @click="state = 'loose'">
-                Give up
-            </BButton>
+            <div
+                class="flex items-center justify-between md:justify-normal w-full md:w-fit gap-x-2"
+            >
+                <div class="border rounded-xl py-2 px-4">
+                    <p class="text-xl">
+                        {{ guessesCount }}/{{ maximumTrials }}
+                    </p>
+                </div>
+                <BButton
+                    type="is-danger is-light"
+                    rounded
+                    @click="state = 'loose'"
+                >
+                    Give up
+                </BButton>
+            </div>
         </div>
-        <div class="mt-8 flex flex-col w-5/12">
+        <div class="mt-8 flex flex-col w-10/12 md:w-5/12">
             <p class="text-lg font-bold">Guesses</p>
             <div class="w-full grid grid-cols-5">
                 <div
@@ -68,9 +81,9 @@
         v-else-if="state === 'win' || state === 'loose'"
         class="flex flex-col w-full items-center justify-center"
     >
-        <p class="text-2xl" v-if="state === 'win'">✅ Congrats !</p>
-        <p class="text-2xl" v-else>❌ You loose !</p>
-        <p class="text-4xl">
+        <p class="text-xl md:text-2xl" v-if="state === 'win'">✅ Congrats !</p>
+        <p class="text-xl md:text-2xl" v-else>❌ You loose !</p>
+        <p class="text-2xl md:text-4xl text-center">
             The team was
             <span class="font-bold">{{ logoToGuess?.team_name }}</span>
         </p>
