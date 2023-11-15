@@ -59,5 +59,6 @@ export default {
     env: {
         supabaseKey: process.env.SUPABASE_KEY,
         supabaseUrl: process.env.SUPABASE_URL,
+        secretKey: process.env.SECRET_KEY,
     },
 };
