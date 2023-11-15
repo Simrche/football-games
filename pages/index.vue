@@ -10,6 +10,9 @@
             <NuxtLink to="/blur" class="text-center text-lg hover:underline">
                 Try Blurred games
             </NuxtLink>
+            <NuxtLink to="/split" class="text-center text-lg hover:underline">
+                Try Split
+            </NuxtLink>
         </div>
     </div>
 </template>
