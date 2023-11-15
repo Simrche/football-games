@@ -63,6 +63,11 @@ function storeSecretKey() {
     if (secretKey.value === process.env.secretKey) {
         setData("secretKey", secretKey, 1, "h");
         adminModal.value = false;
+        ToastProgrammatic.open({
+            message: "Access granted",
+            type: "is-success",
+            pauseOnHover: true,
+        });
     } else {
         ToastProgrammatic.open({
             message: "Wrong secret key",
