@@ -45,9 +45,9 @@
         v-else-if="state === 'win' || state === 'loose'"
         class="flex flex-col w-full items-center justify-center"
     >
-        <p class="text-2xl" v-if="state === 'win'">✅ Congrats !</p>
-        <p class="text-2xl" v-else>❌ You loose !</p>
-        <p class="text-4xl">
+        <p class="text-xl md:text-2xl" v-if="state === 'win'">✅ Congrats !</p>
+        <p class="text-xl md:text-2xl" v-else>❌ You loose !</p>
+        <p class="text-2xl md:text-4xl text-center">
             The player was
             <span class="font-bold">{{ playerToGuess?.fullname }}</span>
         </p>
