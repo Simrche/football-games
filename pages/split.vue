@@ -78,7 +78,7 @@
                 {{ playersToGuess[2].fullname }}
             </span>
         </p>
-        <div class="flex gap-x-4 mt-8">
+        <div class="flex flex-col md:flex-row gap-x-4 mt-8">
             <img
                 v-for="(player, index) in playersToGuess"
                 :key="player.id"
