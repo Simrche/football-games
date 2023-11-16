@@ -44,7 +44,7 @@
 <script lang="ts" setup>
 import { getData, setData } from "nuxt-storage/local-storage";
 import { onMounted, ref, useRouter } from "@nuxtjs/composition-api";
-import { SnackbarProgrammatic, ToastProgrammatic } from "buefy";
+import { ToastProgrammatic } from "buefy";
 
 const router = useRouter();
 const adminModal = ref<boolean>(false);

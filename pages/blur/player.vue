@@ -7,18 +7,17 @@
         class="flex flex-col items-center w-full"
     >
         <div
-            class="w-72 h-72 flex items-center justify-center mt-8"
+            class="w-10/12 md:w-4/12 flex items-center justify-center mt-8"
             :class="{
-                'blur-10': selectedPlayersCount === 0,
-                'blur-8': selectedPlayersCount === 1,
-                'blur-6': selectedPlayersCount === 2,
-                'blur-4': selectedPlayersCount === 3,
-                'blur-2': selectedPlayersCount === 4,
+                'blur-10': selectedPlayersCount === 0 && !isLoading,
+                'blur-8': selectedPlayersCount === 1 && !isLoading,
+                'blur-6': selectedPlayersCount === 2 && !isLoading,
+                'blur-4': selectedPlayersCount === 3 && !isLoading,
+                'blur-2': selectedPlayersCount === 4 && !isLoading,
             }"
         >
-            <img
-                :src="require(`~/assets/img/blur/${photoToGuess.photo}.jpg`)"
-            />
+            <img class="w-full" :src="photoToGuess.url" v-if="!isLoading" />
+            <SpinningBall v-else />
         </div>
 
         <div
@@ -69,6 +68,7 @@
     </div>
 
     <div
+        @keyup.native.enter="restart()"
         v-else-if="state === 'win' || state === 'loose'"
         class="flex flex-col w-full items-center justify-center"
     >
@@ -80,7 +80,7 @@
         </p>
         <img
             class="mt-8 w-2/12"
-            :src="require(`~/assets/img/blur/${photoToGuess.photo}.jpg`)"
+            :src="photoToGuess.url"
             :alt="photoToGuess.players.fullname"
             :title="photoToGuess.players.fullname"
         />
@@ -102,10 +102,11 @@ const supabase = useSupabase();
 const players = ref<Player[]>([]);
 const playersPhotos = ref<PlayerPhoto[]>([]);
 const search = ref<string>("");
-const photoToGuess = ref<PlayerPhoto>();
+const photoToGuess = ref<PlayerPhoto & { url: string }>();
 const selectedPlayers = ref<Player[]>([]);
 const state = ref<"playing" | "win" | "loose">("playing");
 const maximumTrials = 5;
+const isLoading = ref<boolean>(false);
 
 const selectedPlayersCount = computed(() => selectedPlayers.value.length);
 
@@ -122,7 +123,8 @@ async function fetchPlayers() {
 
 function select(player: Player) {
     if (!player) return;
-
+    console.log("player-to-guess", photoToGuess);
+    console.log("player-selected", player);
     selectedPlayers.value.unshift(player);
 
     if (photoToGuess.value && player.id === photoToGuess.value.player_id) {
@@ -139,15 +141,31 @@ function select(player: Player) {
 }
 
 async function pickPhoto() {
-    const { data } = await supabase
-        .from("players_photos")
-        .select("*, players(*)");
-    playersPhotos.value = data as PlayerPhoto[];
+    isLoading.value = true;
 
-    photoToGuess.value =
+    if (!playersPhotos.value || !playersPhotos.value.length) {
+        const { data } = await supabase
+            .from("players_photos")
+            .select("*, players(*)");
+        playersPhotos.value = data as PlayerPhoto[];
+    }
+
+    const selectedPlayer: PlayerPhoto =
         playersPhotos.value[
             Math.floor(Math.random() * playersPhotos.value.length)
         ];
+
+    // requete url
+    const { data: data2 } = await supabase.storage
+        .from("photos")
+        .download(selectedPlayer.photo);
+
+    photoToGuess.value = {
+        ...selectedPlayer,
+        url: URL.createObjectURL(data2),
+    };
+
+    isLoading.value = false;
 }
 
 const filteredPlayers = computed(() => {

@@ -1,13 +1,13 @@
 <template>
     <b-autocomplete
         class="w-full"
-        rounded
+        :rounded="rounded"
         v-model="search"
         :data="players"
         placeholder="Select a player"
         icon="magnify"
         field="fullname"
-        :clear-on-select="true"
+        :clear-on-select="clearOnSelect"
         @select="$emit('select', $event)"
     >
         <template slot-scope="player">
@@ -51,10 +51,18 @@ import { getNationalityFlagUrl } from "~/utils";
 import { positionDict } from "~/utils/dicts";
 import { Player } from "~/utils/types";
 
-const props = defineProps<{
-    players: Player[];
-    modelValue: string;
-}>();
+const props = withDefaults(
+    defineProps<{
+        players: Player[];
+        modelValue: string;
+        rounded?: boolean;
+        clearOnSelect?: boolean;
+    }>(),
+    {
+        rounded: true,
+        clearOnSelect: true,
+    }
+);
 
 const emit = defineEmits<{
     (event: "select", value: Player): void;
