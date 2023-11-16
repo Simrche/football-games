@@ -47,8 +47,6 @@ window.addEventListener("scroll", () => {
 
     const value = window.scrollY;
 
-    console.log(value);
-
     bg.value.style.top = value * 1 + "px";
     textEl.value.style.top = value * 1.2 - 400 + "px";
     textEl.value.style.left = -(value * 1) + 340 + "px";
