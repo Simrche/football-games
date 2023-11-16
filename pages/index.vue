@@ -3,7 +3,7 @@
         <section>
             <img ref="bg" id="bg" src="~/static/app/field.png" />
             <img id="text" ref="textEl" src="~/static/app/mbappe.png" />
-            <h1 id="football">
+            <h1 id="football" class="lg:text-[124px] text-[56px]">
                 FOOTBALL <br />
                 GAMES
             </h1>
@@ -93,7 +93,6 @@ section #football {
     position: fixed;
     top: 0;
     left: 0;
-    font-size: 124px;
     z-index: -1;
     margin: 32px 0 0 32px;
     color: #fff;
