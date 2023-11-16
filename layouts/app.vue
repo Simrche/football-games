@@ -40,6 +40,10 @@ const games = [
         title: "Blur",
         path: "/blur",
     },
+    {
+        title: "Split",
+        path: "/split",
+    },
 ];
 </script>
 
