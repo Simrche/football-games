@@ -107,6 +107,9 @@
                 >
                     Give up
                 </BButton>
+                <BButton type="is-light" rounded @click="state = 'config'">
+                    Menu
+                </BButton>
             </div>
         </div>
         <PlayerRow
@@ -139,9 +142,17 @@
             :show-title="false"
             :player-to-guess="playerToGuess"
         />
-        <div class="flex mt-8 w-3/12 justify-center">
+        <div class="flex mt-8 w-3/12 gap-4 justify-center">
             <BButton @click="restart()" type="is-info" rounded size="is-medium">
                 Restart
+            </BButton>
+            <BButton
+                type="is-light"
+                rounded
+                @click="state = 'config'"
+                size="is-medium"
+            >
+                Menu
             </BButton>
         </div>
     </div>
