@@ -4,47 +4,75 @@
         class="flex flex-col items-center justify-center"
     >
         <div class="flex flex-col gap-y-4">
-            <UiCheckbox
-                :model-value="selectedLeagues.ligue1"
-                @update:modelValue="
-                    selectedLeagues[leagueNames.ligue1] = $event
-                "
-            >
-                Ligue 1
-            </UiCheckbox>
-            <UiCheckbox
-                :model-value="selectedLeagues.premierLeague"
-                @update:modelValue="
-                    selectedLeagues[leagueNames.premierLeague] = $event
-                "
-            >
-                Premier League
-            </UiCheckbox>
-            <UiCheckbox
-                :model-value="selectedLeagues.serieA"
-                @update:modelValue="
-                    selectedLeagues[leagueNames.serieA] = $event
-                "
-            >
-                Serie A
-            </UiCheckbox>
-            <UiCheckbox
-                :model-value="selectedLeagues.laLiga"
-                @update:modelValue="
-                    selectedLeagues[leagueNames.laLiga] = $event
-                "
-            >
-                La Liga
-            </UiCheckbox>
-            <UiCheckbox
-                :model-value="selectedLeagues.bundesliga"
-                @update:modelValue="
-                    selectedLeagues[leagueNames.bundesliga] = $event
-                "
-            >
-                Bundesliga
-            </UiCheckbox>
-            <BButton type="is-info" rounded @click="start()"> Valider </BButton>
+            <p class="font-bold text-md">Game mode</p>
+            <label for="today" class="cursor-pointer flex gap-2">
+                <input
+                    type="radio"
+                    v-model="selectedGameMode"
+                    name="gameMode"
+                    id="today"
+                    value="today"
+                    class="cursor-pointer"
+                />
+                <p>Today's game</p>
+            </label>
+            <label for="normal" class="cursor-pointer flex gap-2">
+                <input
+                    type="radio"
+                    v-model="selectedGameMode"
+                    name="gameMode"
+                    id="normal"
+                    value="normal"
+                    class="cursor-pointer"
+                />
+                <p>Normal game</p>
+            </label>
+            <template v-if="selectedGameMode === 'normal'">
+                <p class="font-bold text-md">Leagues</p>
+                <UiCheckbox
+                    :model-value="selectedLeagues.ligue1"
+                    @update:modelValue="
+                        selectedLeagues[leagueNames.ligue1] = $event
+                    "
+                >
+                    Ligue 1
+                </UiCheckbox>
+                <UiCheckbox
+                    :model-value="selectedLeagues.premierLeague"
+                    @update:modelValue="
+                        selectedLeagues[leagueNames.premierLeague] = $event
+                    "
+                >
+                    Premier League
+                </UiCheckbox>
+                <UiCheckbox
+                    :model-value="selectedLeagues.serieA"
+                    @update:modelValue="
+                        selectedLeagues[leagueNames.serieA] = $event
+                    "
+                >
+                    Serie A
+                </UiCheckbox>
+                <UiCheckbox
+                    :model-value="selectedLeagues.laLiga"
+                    @update:modelValue="
+                        selectedLeagues[leagueNames.laLiga] = $event
+                    "
+                >
+                    La Liga
+                </UiCheckbox>
+                <UiCheckbox
+                    :model-value="selectedLeagues.bundesliga"
+                    @update:modelValue="
+                        selectedLeagues[leagueNames.bundesliga] = $event
+                    "
+                >
+                    Bundesliga
+                </UiCheckbox>
+            </template>
+            <BButton type="is-info" rounded @click="start()">
+                Validate
+            </BButton>
         </div>
     </div>
     <div v-else-if="!playerToGuess" class="flex items-center justify-center">
@@ -141,24 +169,32 @@ const selectedLeagues = ref<Record<string, boolean>>({
     [leagueNames.bundesliga]: true,
     [leagueNames.laLiga]: true,
 });
+const selectedGameMode = ref<"normal" | "today">("normal");
 
 const selectedPlayersCount = computed(() => selectedPlayers.value.length);
 
 async function fetchPlayers() {
-    const { data } = await supabase
-        .from("players")
-        .select()
-        .neq("is_active", false)
-        .in(
-            "league_name",
-            Object.keys(selectedLeagues.value).filter(
-                (league) => selectedLeagues.value[league]
-            )
-        );
+    if (selectedGameMode.value === "normal") {
+        const { data } = await supabase
+            .from("players")
+            .select()
+            .neq("is_active", false)
+            .in(
+                "league_name",
+                Object.keys(selectedLeagues.value).filter(
+                    (league) => selectedLeagues.value[league]
+                )
+            );
 
-    console.log(data);
+        players.value = data as Player[];
+    } else {
+        const { data } = await supabase
+            .from("players")
+            .select()
+            .neq("is_active", false);
 
-    players.value = data as Player[];
+        players.value = data as Player[];
+    }
 }
 
 const filteredPlayers = computed(() => {
@@ -223,15 +259,39 @@ function pickPlayerToGuess() {
         ];
 }
 
+async function getTodayChallengePlayer() {
+    const { data } = await supabase.from("games").select().eq("name", "wordle");
+
+    if (!data) return;
+
+    const { data: player } = await supabase
+        .from("players")
+        .select()
+        .eq("id", data[0].today_challenge_data.player_id);
+
+    if (!player) return;
+
+    playerToGuess.value = player[0];
+}
+
 async function start() {
     await fetchPlayers();
-    pickPlayerToGuess();
+
+    if (selectedGameMode.value === "normal") {
+        pickPlayerToGuess();
+    } else {
+        getTodayChallengePlayer();
+    }
     state.value = "playing";
 }
 
 function restart() {
     selectedPlayers.value = [];
-    pickPlayerToGuess();
+    if (selectedGameMode.value === "normal") {
+        pickPlayerToGuess();
+    } else {
+        getTodayChallengePlayer();
+    }
     state.value = "playing";
 }
 </script>
