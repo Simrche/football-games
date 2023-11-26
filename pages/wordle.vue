@@ -1,5 +1,53 @@
 <template>
-    <div v-if="!playerToGuess" class="flex items-center justify-center">
+    <div
+        v-if="state === 'config'"
+        class="flex flex-col items-center justify-center"
+    >
+        <div class="flex flex-col gap-y-4">
+            <UiCheckbox
+                :model-value="selectedLeagues.ligue1"
+                @update:modelValue="
+                    selectedLeagues[leagueNames.ligue1] = $event
+                "
+            >
+                Ligue 1
+            </UiCheckbox>
+            <UiCheckbox
+                :model-value="selectedLeagues.premierLeague"
+                @update:modelValue="
+                    selectedLeagues[leagueNames.premierLeague] = $event
+                "
+            >
+                Premier League
+            </UiCheckbox>
+            <UiCheckbox
+                :model-value="selectedLeagues.serieA"
+                @update:modelValue="
+                    selectedLeagues[leagueNames.serieA] = $event
+                "
+            >
+                Serie A
+            </UiCheckbox>
+            <UiCheckbox
+                :model-value="selectedLeagues.laLiga"
+                @update:modelValue="
+                    selectedLeagues[leagueNames.laLiga] = $event
+                "
+            >
+                La Liga
+            </UiCheckbox>
+            <UiCheckbox
+                :model-value="selectedLeagues.bundesliga"
+                @update:modelValue="
+                    selectedLeagues[leagueNames.bundesliga] = $event
+                "
+            >
+                Bundesliga
+            </UiCheckbox>
+            <BButton type="is-info" rounded @click="start()"> Valider </BButton>
+        </div>
+    </div>
+    <div v-else-if="!playerToGuess" class="flex items-center justify-center">
         <SpinningBall />
     </div>
     <div
@@ -7,7 +55,7 @@
         v-else-if="state === 'playing'"
     >
         <div
-            class="flex gap-y-2 flex-col-reverse md:flex-row w-10/12 md:w-5/12 gap-x-2 items-center"
+            class="flex flex-col-reverse w-10/12 gap-y-2 gap-x-2 items-center md:flex-row md:w-5/12"
         >
             <PlayerAutoComplete
                 class="w-full"
@@ -17,7 +65,7 @@
                 @select="select($event)"
             />
             <div
-                class="flex items-center justify-between md:justify-normal w-full md:w-fit gap-x-2"
+                class="flex w-full gap-x-2 items-center justify-between md:w-fit md:justify-normal"
             >
                 <div class="border rounded-xl py-2 px-4">
                     <p class="text-xl">
@@ -47,7 +95,7 @@
     >
         <p class="text-xl md:text-2xl" v-if="state === 'win'">✅ Congrats !</p>
         <p class="text-xl md:text-2xl" v-else>❌ You loose !</p>
-        <p class="text-2xl md:text-4xl text-center">
+        <p class="text-center text-2xl md:text-4xl">
             The player was
             <span class="font-bold">{{ playerToGuess?.fullname }}</span>
         </p>
@@ -72,8 +120,9 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, onMounted, ref } from "@nuxtjs/composition-api";
+import { computed, ref } from "@nuxtjs/composition-api";
 import { normalizeString, useSupabase } from "~/utils";
+import { leagueNames } from "~/utils/dicts";
 import { Player } from "~/utils/types";
 
 const supabase = useSupabase();
@@ -82,22 +131,32 @@ const players = ref<Player[]>([]);
 const search = ref<string>("");
 const selectedPlayers = ref<Player[]>([]);
 const playerToGuess = ref<Player>();
-const state = ref<"playing" | "win" | "loose">("playing");
+const state = ref<"config" | "playing" | "win" | "loose">("config");
 const maximumTrials = 10;
 
-const selectedPlayersCount = computed(() => selectedPlayers.value.length);
-
-onMounted(async () => {
-    await fetchPlayers();
-
-    pickPlayerToGuess();
+const selectedLeagues = ref<Record<string, boolean>>({
+    [leagueNames.ligue1]: true,
+    [leagueNames.serieA]: true,
+    [leagueNames.premierLeague]: true,
+    [leagueNames.bundesliga]: true,
+    [leagueNames.laLiga]: true,
 });
+
+const selectedPlayersCount = computed(() => selectedPlayers.value.length);
 
 async function fetchPlayers() {
     const { data } = await supabase
         .from("players")
         .select()
-        .neq("is_active", false);
+        .neq("is_active", false)
+        .in(
+            "league_name",
+            Object.keys(selectedLeagues.value).filter(
+                (league) => selectedLeagues.value[league]
+            )
+        );
+
+    console.log(data);
 
     players.value = data as Player[];
 }
@@ -162,6 +221,12 @@ function pickPlayerToGuess() {
         playerWithMinimumRate[
             Math.floor(Math.random() * playerWithMinimumRate.length)
         ];
+}
+
+async function start() {
+    await fetchPlayers();
+    pickPlayerToGuess();
+    state.value = "playing";
 }
 
 function restart() {

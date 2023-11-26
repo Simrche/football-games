@@ -1,3 +1,11 @@
+export enum leagueNames {
+    ligue1 = "Ligue 1",
+    premierLeague = "Premier League",
+    bundesliga = "Bundesliga",
+    serieA = "Seria A",
+    laLiga = "La Liga",
+}
+
 export const positionDict: Record<string, string> = {
     Attacker: "FW",
     Midfielder: "MF",
