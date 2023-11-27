@@ -287,6 +287,7 @@ async function getTodayChallengePlayer() {
 
 async function start() {
     await fetchPlayers();
+    selectedPlayers.value = [];
 
     if (selectedGameMode.value === "normal") {
         pickPlayerToGuess();
