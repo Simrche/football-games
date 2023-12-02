@@ -5,7 +5,7 @@
     >
         <div class="flex flex-col gap-y-4">
             <p class="font-bold text-md">Game mode</p>
-            <label for="today" class="cursor-pointer flex gap-2">
+            <label for="today" class="cursor-pointer flex gap-2 items-center">
                 <input
                     type="radio"
                     v-model="selectedGameMode"
@@ -16,7 +16,7 @@
                 />
                 <p>Today's game</p>
             </label>
-            <label for="normal" class="cursor-pointer flex gap-2">
+            <label for="normal" class="cursor-pointer flex gap-2 items-center">
                 <input
                     type="radio"
                     v-model="selectedGameMode"
