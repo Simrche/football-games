@@ -1,108 +1,63 @@
 <template>
-    <div>
-        <section>
-            <img ref="bg" id="bg" src="~/static/app/field.png" />
-            <img id="text" ref="textEl" src="~/static/app/mbappe.png" />
-            <h1 id="football" class="lg:text-[124px] text-[56px]">
+    <div class="flex w-full">
+        <div
+            class="bg-cover h-screen w-1/2 relative items-center justify-center hidden md:flex"
+            :style="{
+                'background-image': `url(${require('~/assets/img/index/background.png')})`,
+            }"
+        >
+            <img
+                src="~/assets/img/index/logo_white.png"
+                class="top-5 left-5 absolute"
+            />
+            <h1 class="font-bold text-white text-[68px] lg:text-[96px]">
                 FOOTBALL <br />
                 GAMES
             </h1>
-        </section>
-        <div class="flex flex-col justify-center w-screen gap-8 h-screen">
-            <h1 class="text-center text-3xl font-bold">
-                Welcome to Football games !
-            </h1>
-            <div class="flex flex-col">
-                <NuxtLink
-                    to="/wordle"
-                    class="text-center text-lg hover:underline"
+        </div>
+        <div
+            class="flex flex-col h-screen w-full gap-y-4 justify-center items-center md:w-1/2"
+        >
+            <div
+                v-for="game in games"
+                @click="router.push(game.path)"
+                class="border-black rounded-lg cursor-pointer flex font-semibold border-[5px] shadow-xl p-4 transition-all w-5/6 duration-150 items-center justify-between hover:bg-green-800 hover:text-white"
+            >
+                <p class="font-semibold text-[16px] sm:text-[20px]">
+                    FOOTBALL {{ game.title.toUpperCase() }}
+                </p>
+                <i :class="`mdi mdi-arrow-right`" class="text-2xl"></i>
+            </div>
+            <div class="flex mt-4 gap-x-2">
+                <div
+                    class="border-black rounded-md cursor-pointer flex border-[4px] h-10 w-10 items-center justify-center hover:bg-green-800 hover:text-white"
                 >
-                    Try football Wordle
-                </NuxtLink>
-                <NuxtLink
-                    to="/blur"
-                    class="text-center text-lg hover:underline"
+                    <i :class="`mdi mdi-weather-night`" class="text-xl"></i>
+                </div>
+                <div
+                    class="border-black rounded-md cursor-pointer flex border-[4px] h-10 w-10 items-center justify-center hover:bg-green-800 hover:text-white"
                 >
-                    Try Blurred games
-                </NuxtLink>
-                <NuxtLink
-                    to="/split"
-                    class="text-center text-lg hover:underline"
+                    <i :class="`mdi mdi-cog`" class="text-xl"></i>
+                </div>
+                <div
+                    class="border-black rounded-md cursor-pointer flex border-[4px] h-10 w-10 items-center justify-center hover:bg-green-800 hover:text-white"
                 >
-                    Try Split
-                </NuxtLink>
+                    <i :class="`mdi mdi-book`" class="text-xl"></i>
+                </div>
             </div>
         </div>
     </div>
 </template>
 
 <script setup lang="ts">
-import { ref } from "@nuxtjs/composition-api";
+import { useRouter } from "@nuxtjs/composition-api";
+import { games } from "~/utils/dicts";
 
-const bg = ref<HTMLImageElement>();
-const textEl = ref<HTMLTitleElement>();
-
-window.addEventListener("scroll", () => {
-    if (!bg.value || !textEl.value) return;
-
-    const value = window.scrollY;
-
-    bg.value.style.top = value * 1 + "px";
-    textEl.value.style.top = value * 1.2 - 400 + "px";
-    textEl.value.style.left = -(value * 1) + 340 + "px";
-});
+const router = useRouter();
 </script>
 
-<style scoped>
-h1 {
-    font-family: "verdana";
-}
-
-section {
-    position: relative;
-    width: 100%;
-    height: 200vh;
-    overflow: hidden;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: linear-gradient();
-}
-
-section img {
-    position: absolute;
-    top: -340px;
-    left: 400px;
-    height: 100vh;
-    pointer-events: none;
-}
-
-section #bg {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100vh;
-    width: 100vw;
-    pointer-events: none;
-    z-index: -2;
-}
-
-section #football {
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: -1;
-    margin: 32px 0 0 32px;
-    color: #fff;
-}
-
-#text {
-    position: relative;
-    color: #fff;
-    z-index: 1;
-}
-
-#bg {
-    z-index: 2;
+<style>
+* {
+    font-family: "Inter";
 }
 </style>

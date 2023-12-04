@@ -1,12 +1,12 @@
 <template>
     <div>
-        <div class="min-h-10vh flex items-center bg-gray-200">
-            <nav class="flex items-center justify-between w-screen px-8">
-                <div class="flex items-center gap-8 group">
+        <div class="flex bg-gray-200 min-h-10vh items-center">
+            <nav class="flex w-screen px-8 items-center justify-between">
+                <div class="flex gap-8 items-center group">
                     <img
                         src="~/static/app/football_ball.png"
                         alt="Football ball"
-                        class="h-10 w-10 transform rotate-0 group-hover:rotate-45 duration-200 cursor-pointer"
+                        class="cursor-pointer h-10 transform w-10 rotate-0 duration-200 group-hover:rotate-45"
                         @click="router.push('/')"
                     />
                     <p
@@ -39,8 +39,9 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref, useRoute, useRouter } from "@nuxtjs/composition-api";
+import { computed, useRoute, useRouter } from "@nuxtjs/composition-api";
 import { getData } from "nuxt-storage/local-storage";
+import { games } from "~/utils/dicts";
 
 const router = useRouter();
 const route = useRoute();
@@ -51,21 +52,6 @@ const isAdmin = computed(() => {
         getData("secretKey").value === process.env.secretKey
     );
 });
-
-const games = [
-    {
-        title: "Wordle",
-        path: "/wordle",
-    },
-    {
-        title: "Blur",
-        path: "/blur",
-    },
-    {
-        title: "Split",
-        path: "/split",
-    },
-];
 </script>
 
 <style>

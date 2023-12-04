@@ -6,6 +6,21 @@ export enum leagueNames {
     laLiga = "La Liga",
 }
 
+export const games: { title: string; path: string }[] = [
+    {
+        title: "Wordle",
+        path: "/wordle",
+    },
+    {
+        title: "Blur",
+        path: "/blur",
+    },
+    {
+        title: "Split",
+        path: "/split",
+    },
+];
+
 export const positionDict: Record<string, string> = {
     Attacker: "FW",
     Midfielder: "MF",
