@@ -83,7 +83,7 @@
         v-else-if="state === 'playing'"
     >
         <div
-            class="flex flex-col-reverse w-10/12 gap-y-2 gap-x-2 items-center md:flex-row md:w-5/12"
+            class="flex flex-col-reverse w-10/12 gap-y-2 gap-x-2 items-center md:flex-row md:w-8/12 lg:w-5/12"
         >
             <PlayerAutoComplete
                 class="w-full"
@@ -115,7 +115,7 @@
         <PlayerRow
             v-for="player in selectedPlayers"
             :key="player.id"
-            class="w-10/12 lg:w-5/12"
+            class="w-10/12 md:w-8/12 lg:w-5/12"
             :player="player"
             :player-to-guess="playerToGuess"
         />
