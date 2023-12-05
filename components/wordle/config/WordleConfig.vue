@@ -1,9 +1,13 @@
 <template>
     <div
-        class="flex flex-col mx-auto w-1/2 gap-y-8 items-center justify-center"
+        class="flex flex-col mx-auto w-2/3 gap-y-4 items-center justify-center md:gap-y-8 lg:w-1/2"
     >
-        <p class="font-semibold text-center text-6xl">FOOTBALL WORDLE</p>
-        <p class="font-normal text-4xl text-green-800 imprima">Game mode</p>
+        <p class="font-semibold text-center text-2xl md:text-6xl">
+            FOOTBALL WORDLE
+        </p>
+        <p class="font-normal text-xl text-green-800 imprima md:text-4xl">
+            Game mode
+        </p>
         <div class="w-full grid gap-4 grid-cols-1 lg:grid-cols-2">
             <WordleConfigButton
                 title="Today's Game"
@@ -17,7 +21,9 @@
             />
         </div>
         <template v-if="selectedGameMode === 'normal'">
-            <p class="font-normal text-4xl text-green-800 imprima">Leagues</p>
+            <p class="font-normal text-xl text-green-800 imprima md:text-4xl">
+                Leagues
+            </p>
             <div class="w-full grid gap-4 grid-cols-1 lg:grid-cols-2">
                 <WordleConfigButton
                     :title="leagueNames.ligue1"

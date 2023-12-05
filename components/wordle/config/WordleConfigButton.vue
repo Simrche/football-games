@@ -19,8 +19,10 @@
         >
             <i v-if="selected" class="text-xl mdi mdi-check"></i>
         </div>
-        <div class="flex h-full w-full justify-between" v-if="img">
-            <p class="font-semibold text-xl ml-4 py-2">{{ title }}</p>
+        <div class="flex h-full w-full justify-between items-center" v-if="img">
+            <p class="font-semibold text-sm ml-2 py-2 md:text-xl lg:ml-4">
+                {{ title }}
+            </p>
             <div
                 :style="{
                     'background-image': `url(${require('~/assets/img/leagues/' +
@@ -30,7 +32,9 @@
                 class="bg-cover border-black h-full bg-red-500 border-l-2 w-1/3"
             ></div>
         </div>
-        <p v-else class="font-semibold text-xl ml-4 py-2">{{ title }}</p>
+        <p v-else class="font-semibold text-md ml-2 py-2 md:text-xl lg:ml-4">
+            {{ title }}
+        </p>
     </div>
 </template>
 
