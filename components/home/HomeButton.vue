@@ -6,7 +6,7 @@
         <p class="font-semibold text-[16px] sm:text-[20px]">
             FOOTBALL {{ game.title.toUpperCase() }}
         </p>
-        <i :class="`mdi mdi-arrow-right`" class="text-2xl"></i>
+        <i class="text-2xl mdi mdi-arrow-right"></i>
     </div>
 </template>
 

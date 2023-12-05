@@ -7,10 +7,10 @@
             }"
         >
             <img
-                src="~/assets/img/index/logo_white.png"
+                src="~/assets/img/app/logo_white.png"
                 class="top-5 left-5 absolute"
             />
-            <h1 class="font-bold text-white text-[68px] lg:text-[96px]">
+            <h1 class="font-bold text-white mb-12 text-[68px] lg:text-[96px]">
                 FOOTBALL <br />
                 GAMES
             </h1>

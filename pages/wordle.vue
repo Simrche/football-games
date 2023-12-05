@@ -1,80 +1,12 @@
 <template>
-    <div
+    <WordleConfig
         v-if="state === 'config'"
-        class="flex flex-col items-center justify-center"
-    >
-        <div class="flex flex-col gap-y-4">
-            <p class="font-bold text-md">Game mode</p>
-            <label for="today" class="cursor-pointer flex gap-2 items-center">
-                <input
-                    type="radio"
-                    v-model="selectedGameMode"
-                    name="gameMode"
-                    id="today"
-                    value="today"
-                    class="cursor-pointer"
-                />
-                <p>Today's game</p>
-            </label>
-            <label for="normal" class="cursor-pointer flex gap-2 items-center">
-                <input
-                    type="radio"
-                    v-model="selectedGameMode"
-                    name="gameMode"
-                    id="normal"
-                    value="normal"
-                    class="cursor-pointer"
-                />
-                <p>Normal game</p>
-            </label>
-            <template v-if="selectedGameMode === 'normal'">
-                <p class="font-bold text-md">Leagues</p>
-                <UiCheckbox
-                    :model-value="selectedLeagues.ligue1"
-                    @update:modelValue="
-                        selectedLeagues[leagueNames.ligue1] = $event
-                    "
-                >
-                    Ligue 1
-                </UiCheckbox>
-                <UiCheckbox
-                    :model-value="selectedLeagues.premierLeague"
-                    @update:modelValue="
-                        selectedLeagues[leagueNames.premierLeague] = $event
-                    "
-                >
-                    Premier League
-                </UiCheckbox>
-                <UiCheckbox
-                    :model-value="selectedLeagues.serieA"
-                    @update:modelValue="
-                        selectedLeagues[leagueNames.serieA] = $event
-                    "
-                >
-                    Serie A
-                </UiCheckbox>
-                <UiCheckbox
-                    :model-value="selectedLeagues.laLiga"
-                    @update:modelValue="
-                        selectedLeagues[leagueNames.laLiga] = $event
-                    "
-                >
-                    La Liga
-                </UiCheckbox>
-                <UiCheckbox
-                    :model-value="selectedLeagues.bundesliga"
-                    @update:modelValue="
-                        selectedLeagues[leagueNames.bundesliga] = $event
-                    "
-                >
-                    Bundesliga
-                </UiCheckbox>
-            </template>
-            <BButton type="is-info" rounded @click="start()">
-                Validate
-            </BButton>
-        </div>
-    </div>
+        :selected-game-mode="selectedGameMode"
+        :selected-leagues="selectedLeagues"
+        @update:selectedLeagues="selectedLeagues = $event"
+        @update:selectedGameMode="selectedGameMode = $event"
+        @start="start()"
+    />
     <div v-else-if="!playerToGuess" class="flex items-center justify-center">
         <AppSpinningBall />
     </div>
@@ -315,3 +247,9 @@ export default defineComponent({
     layout: "app",
 });
 </script>
+
+<style>
+.imprima {
+    font-family: Imprima;
+}
+</style>
