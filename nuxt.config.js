@@ -18,7 +18,7 @@ export default {
             { name: "format-detection", content: "telephone=no" },
         ],
         link: [
-            { rel: "icon", type: "image/png", href: "/app/football_ball.png" },
+            { rel: "icon", type: "image/png", href: "/favicon.png" },
             {
                 rel: "stylesheet",
                 href: "https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap",

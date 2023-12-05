@@ -1,13 +1,13 @@
 <template>
     <div v-if="!photoToGuess" class="flex items-center justify-center">
-        <SpinningBall />
+        <AppSpinningBall />
     </div>
     <div
         v-else-if="state === 'playing'"
-        class="flex flex-col items-center w-full"
+        class="flex flex-col w-full items-center"
     >
         <div
-            class="w-10/12 md:w-4/12 flex items-center justify-center mt-8"
+            class="flex mt-8 w-10/12 items-center justify-center md:w-4/12"
             :class="{
                 'blur-10': selectedPlayersCount === 0 && !isLoading,
                 'blur-8': selectedPlayersCount === 1 && !isLoading,
@@ -17,11 +17,11 @@
             }"
         >
             <img class="w-full" :src="photoToGuess.url" v-if="!isLoading" />
-            <SpinningBall v-else />
+            <AppSpinningBall v-else />
         </div>
 
         <div
-            class="flex gap-y-2 flex-col-reverse md:flex-row w-10/12 md:w-5/12 gap-x-2 items-center justify-center"
+            class="flex flex-col-reverse w-10/12 gap-y-2 gap-x-2 items-center justify-center md:flex-row md:w-5/12"
         >
             <PlayerAutoComplete
                 class="w-full"
@@ -32,7 +32,7 @@
             />
 
             <div
-                class="flex items-center justify-between md:justify-normal w-full md:w-fit gap-x-2"
+                class="flex w-full gap-x-2 items-center justify-between md:w-fit md:justify-normal"
             >
                 <div class="border rounded-xl py-2 px-4">
                     <p class="text-xl">
@@ -49,16 +49,16 @@
             </div>
         </div>
 
-        <div class="mt-8 flex flex-col w-10/12 md:w-5/12">
-            <p class="text-lg font-bold">Guesses</p>
+        <div class="flex flex-col mt-8 w-10/12 md:w-5/12">
+            <p class="font-bold text-lg">Guesses</p>
             <div class="w-full grid grid-cols-5">
                 <div
                     v-for="guess in selectedPlayers"
                     :key="guess.id"
-                    class="flex items-center justify-center mt-2"
+                    class="flex mt-2 items-center justify-center"
                 >
                     <img
-                        class="w-16 h-16"
+                        class="h-16 w-16"
                         :src="guess.photo"
                         :alt="guess.fullname"
                     />
@@ -74,7 +74,7 @@
     >
         <p class="text-xl md:text-2xl" v-if="state === 'win'">✅ Congrats !</p>
         <p class="text-xl md:text-2xl" v-else>❌ You loose !</p>
-        <p class="text-2xl md:text-4xl text-center">
+        <p class="text-center text-2xl md:text-4xl">
             The player was
             <span class="font-bold">{{ photoToGuess.players.fullname }}</span>
         </p>

@@ -1,13 +1,13 @@
 <template>
     <div v-if="!playersToGuess" class="flex items-center justify-center">
-        <SpinningBall />
+        <AppSpinningBall />
     </div>
     <div
         class="flex flex-col w-full py-12 gap-6 items-center"
         v-else-if="state === 'playing'"
     >
         <div
-            class="flex gap-y-2 flex-col-reverse md:flex-row w-10/12 md:w-5/12 gap-x-2 items-center"
+            class="flex flex-col-reverse w-10/12 gap-y-2 gap-x-2 items-center md:flex-row md:w-5/12"
         >
             <PlayerAutoComplete
                 class="w-full"
@@ -17,7 +17,7 @@
                 @select="select($event)"
             />
             <div
-                class="flex items-center justify-between md:justify-normal w-full md:w-fit gap-x-2"
+                class="flex w-full gap-x-2 items-center justify-between md:w-fit md:justify-normal"
             >
                 <div class="border rounded-xl py-2 px-4">
                     <p class="text-xl">
@@ -33,7 +33,7 @@
                 </BButton>
             </div>
         </div>
-        <div class="w-10/12 md:w-5/12 flex justify-center">
+        <div class="flex w-10/12 justify-center md:w-5/12">
             <div>
                 <div
                     class="h-[100px] w-[250px] overflow-hidden"
@@ -57,7 +57,7 @@
                 <div
                     v-for="(player, index) in playersToGuess"
                     :key="player.id"
-                    class="flex h-[100px] items-center ml-12"
+                    class="flex h-[100px] ml-12 items-center"
                 >
                     {{ selectedPlayers.includes(player) ? "✅" : "⏳" }}
                 </div>
@@ -70,7 +70,7 @@
     >
         <p class="text-xl md:text-2xl" v-if="state === 'win'">✅ Congrats !</p>
         <p class="text-xl md:text-2xl" v-else>❌ You loose !</p>
-        <p class="text-2xl md:text-4xl text-center">
+        <p class="text-center text-2xl md:text-4xl">
             The players was
             <span class="font-bold">
                 {{ playersToGuess[0].fullname }},
@@ -78,7 +78,7 @@
                 {{ playersToGuess[2].fullname }}
             </span>
         </p>
-        <div class="flex flex-col md:flex-row gap-x-4 mt-8">
+        <div class="flex flex-col mt-8 gap-x-4 md:flex-row">
             <img
                 v-for="(player, index) in playersToGuess"
                 :key="player.id"

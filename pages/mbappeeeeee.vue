@@ -1,8 +1,8 @@
 <template>
     <div>
         <section>
-            <img ref="bg" id="bg" src="~/static/app/field.png" />
-            <img id="text" ref="textEl" src="~/static/app/mbappe.png" />
+            <img ref="bg" id="bg" src="~/assets/img/app/field.png" />
+            <img id="text" ref="textEl" src="~/assets/img/app/mbappe.png" />
             <h1 id="football" class="text-[56px] lg:text-[124px]">
                 FOOTBALL <br />
                 GAMES

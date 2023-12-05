@@ -4,7 +4,7 @@
             <nav class="flex w-screen px-8 items-center justify-between">
                 <div class="flex gap-8 items-center group">
                     <img
-                        src="~/static/app/football_ball.png"
+                        src="~/assets/img/app/football_ball.png"
                         alt="Football ball"
                         class="cursor-pointer h-10 transform w-10 rotate-0 duration-200 group-hover:rotate-45"
                         @click="router.push('/')"

@@ -76,7 +76,7 @@
         </div>
     </div>
     <div v-else-if="!playerToGuess" class="flex items-center justify-center">
-        <SpinningBall />
+        <AppSpinningBall />
     </div>
     <div
         class="flex flex-col w-full py-12 gap-6 items-center"
