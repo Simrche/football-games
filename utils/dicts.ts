@@ -2,7 +2,7 @@ export enum leagueNames {
     ligue1 = "Ligue 1",
     premierLeague = "Premier League",
     bundesliga = "Bundesliga",
-    serieA = "Seria A",
+    serieA = "Serie A",
     laLiga = "La Liga",
 }
 
