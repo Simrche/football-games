@@ -10,48 +10,12 @@
     <div v-else-if="!playerToGuess" class="flex items-center justify-center">
         <AppSpinningBall />
     </div>
-    <div
-        class="flex flex-col w-full py-12 gap-6 items-center"
+    <Wordle
         v-else-if="state === 'playing'"
-    >
-        <div
-            class="flex flex-col-reverse w-10/12 gap-y-2 gap-x-2 items-center md:flex-row md:w-8/12 lg:w-5/12"
-        >
-            <PlayerAutoComplete
-                class="w-full"
-                :players="filteredPlayers"
-                :model-value="search"
-                @update:modelValue="search = $event"
-                @select="select($event)"
-            />
-            <div
-                class="flex w-full gap-x-2 items-center justify-between md:w-fit md:justify-normal"
-            >
-                <div class="border rounded-xl py-2 px-4">
-                    <p class="text-xl">
-                        {{ selectedPlayersCount }}/{{ maximumTrials }}
-                    </p>
-                </div>
-                <BButton
-                    type="is-danger is-light"
-                    rounded
-                    @click="state = 'loose'"
-                >
-                    Give up
-                </BButton>
-                <BButton type="is-light" rounded @click="state = 'config'">
-                    Menu
-                </BButton>
-            </div>
-        </div>
-        <PlayerRow
-            v-for="player in selectedPlayers"
-            :key="player.id"
-            class="w-10/12 md:w-8/12 lg:w-5/12"
-            :player="player"
-            :player-to-guess="playerToGuess"
-        />
-    </div>
+        :players="players"
+        :player-to-guess="playerToGuess"
+        @state="state = $event"
+    />
     <div
         v-else-if="state === 'win' || state === 'loose'"
         class="flex flex-col w-full items-center justify-center"
@@ -91,19 +55,16 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, ref } from "@nuxtjs/composition-api";
-import { normalizeString, useSupabase } from "~/utils";
+import { ref } from "@nuxtjs/composition-api";
+import { useSupabase } from "~/utils";
 import { leagueNames } from "~/utils/dicts";
 import { Player } from "~/utils/types";
 
 const supabase = useSupabase();
 
 const players = ref<Player[]>([]);
-const search = ref<string>("");
-const selectedPlayers = ref<Player[]>([]);
 const playerToGuess = ref<Player>();
 const state = ref<"config" | "playing" | "win" | "loose">("config");
-const maximumTrials = 10;
 
 const selectedLeagues = ref<Record<string, boolean>>({
     [leagueNames.ligue1]: true,
@@ -113,8 +74,6 @@ const selectedLeagues = ref<Record<string, boolean>>({
     [leagueNames.laLiga]: true,
 });
 const selectedGameMode = ref<"normal" | "today">("normal");
-
-const selectedPlayersCount = computed(() => selectedPlayers.value.length);
 
 async function fetchPlayers() {
     if (selectedGameMode.value === "normal") {
@@ -137,57 +96,6 @@ async function fetchPlayers() {
             .neq("is_active", false);
 
         players.value = data as Player[];
-    }
-}
-
-const filteredPlayers = computed(() => {
-    return players.value
-        .filter((player) => {
-            if (selectedPlayers.value.includes(player)) return false;
-
-            return (
-                player.firstname
-                    ?.toString()
-                    .replace(/[\u0300-\u036f]/g, "")
-                    .toLowerCase()
-                    .indexOf(search.value.toLowerCase()) >= 0 ||
-                player.lastname
-                    ?.toString()
-                    .toLowerCase()
-                    .indexOf(search.value.toLowerCase()) >= 0 ||
-                player.fullname
-                    ?.toString()
-                    .toLowerCase()
-                    .indexOf(search.value.toLowerCase()) >= 0 ||
-                normalizeString(player.firstname?.toString())
-                    .toLowerCase()
-                    .indexOf(search.value.toLowerCase()) >= 0 ||
-                normalizeString(player.lastname?.toString())
-                    .toLowerCase()
-                    .indexOf(search.value.toLowerCase()) >= 0 ||
-                normalizeString(player.fullname?.toString())
-                    .toLowerCase()
-                    .indexOf(search.value.toLowerCase()) >= 0
-            );
-        })
-        .splice(0, 15);
-});
-
-function select(player: Player) {
-    if (!player) return;
-
-    selectedPlayers.value.unshift(player);
-
-    if (playerToGuess.value && player.id === playerToGuess.value.id) {
-        state.value = "win";
-        search.value = "";
-        return;
-    }
-
-    if (selectedPlayersCount.value >= maximumTrials) {
-        state.value = "loose";
-        search.value = "";
-        return;
     }
 }
 
@@ -219,7 +127,6 @@ async function getTodayChallengePlayer() {
 
 async function start() {
     await fetchPlayers();
-    selectedPlayers.value = [];
 
     if (selectedGameMode.value === "normal") {
         pickPlayerToGuess();
@@ -230,7 +137,6 @@ async function start() {
 }
 
 function restart() {
-    selectedPlayers.value = [];
     if (selectedGameMode.value === "normal") {
         pickPlayerToGuess();
     } else {
@@ -247,9 +153,3 @@ export default defineComponent({
     layout: "app",
 });
 </script>
-
-<style>
-.imprima {
-    font-family: Imprima;
-}
-</style>

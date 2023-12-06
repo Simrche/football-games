@@ -5,9 +5,7 @@
         <p class="font-semibold text-center text-2xl md:text-6xl">
             FOOTBALL WORDLE
         </p>
-        <p class="font-normal text-xl text-green-800 imprima md:text-4xl">
-            Game mode
-        </p>
+        <p class="font-normal text-lg text-green-800 md:text-3xl">Game mode</p>
         <div class="w-full grid gap-4 grid-cols-1 lg:grid-cols-2">
             <WordleConfigButton
                 title="Today's Game"
@@ -21,7 +19,7 @@
             />
         </div>
         <template v-if="selectedGameMode === 'normal'">
-            <p class="font-normal text-xl text-green-800 imprima md:text-4xl">
+            <p class="font-normal text-lg text-green-800 md:text-3xl">
                 Leagues
             </p>
             <div class="w-full grid gap-4 grid-cols-1 lg:grid-cols-2">
