@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
     <div>
         <section>
             <img ref="bg" id="bg" src="~/assets/img/app/field.png" />
@@ -8,31 +8,6 @@
                 GAMES
             </h1>
         </section>
-        <!-- <div class="flex flex-col h-screen w-screen gap-8 justify-center">
-            <h1 class="font-bold text-center text-3xl">
-                Welcome to Football games !
-            </h1>
-            <div class="flex flex-col">
-                <NuxtLink
-                    to="/wordle"
-                    class="text-center text-lg hover:underline"
-                >
-                    Try football Wordle
-                </NuxtLink>
-                <NuxtLink
-                    to="/blur"
-                    class="text-center text-lg hover:underline"
-                >
-                    Try Blurred games
-                </NuxtLink>
-                <NuxtLink
-                    to="/split"
-                    class="text-center text-lg hover:underline"
-                >
-                    Try Split
-                </NuxtLink>
-            </div>
-        </div> -->
     </div>
 </template>
 
@@ -105,4 +80,4 @@ section #football {
 #bg {
     z-index: 2;
 }
-</style>
+</style> -->
