@@ -16,6 +16,10 @@ export const games: { title: string; path: string }[] = [
         path: "/blur",
     },
     {
+        title: "Pixels",
+        path: "/pixelize",
+    },
+    {
         title: "Split",
         path: "/split",
     },
