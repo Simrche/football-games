@@ -3,6 +3,9 @@ module.exports = {
     content: ["./src/**/*.{html,js,vue}"],
     theme: {
         extend: {
+            bottom: {
+                18: "4.5rem",
+            },
             height: {
                 "33vh": "33vh",
                 "25vh": "25vh",

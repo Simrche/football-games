@@ -21,14 +21,13 @@
             <HomeButton v-for="game in games" :key="game.path" :game="game" />
             <AppParamButtons class="mt-4" />
         </div>
+
+        <Robot envVarName="robotApiKey" />
     </div>
 </template>
 
 <script setup lang="ts">
-import { useRouter } from "@nuxtjs/composition-api";
 import { games } from "~/utils/dicts";
-
-const router = useRouter();
 </script>
 
 <style>

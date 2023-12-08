@@ -30,7 +30,7 @@ export default {
     css: ["@mdi/font/css/materialdesignicons.min.css"],
 
     // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-    plugins: ["@/plugins/supabase.client.js"],
+    plugins: ["@/plugins/supabase.client.js", "@/plugins/openai.js"],
 
     // Auto import components: https://go.nuxtjs.dev/config-components
     components: true,
@@ -58,11 +58,22 @@ export default {
     },
 
     // Build Configuration: https://go.nuxtjs.dev/config-build
-    build: {},
+    build: {
+        extend(config, ctx) {
+            // Ajoutez les règles nécessaires pour traiter les fichiers liés à OpenAI
+            config.module.rules.push({
+                test: /\.js$/,
+                loader: "babel-loader",
+                exclude: /node_modules/,
+            });
+        },
+    },
 
     env: {
         supabaseKey: process.env.SUPABASE_KEY,
         supabaseUrl: process.env.SUPABASE_URL,
         secretKey: process.env.SECRET_KEY,
+        robotApiKey: process.env.ROBOT_API_KEY,
+        OPENAI_API_KEY: process.env.OPENAI_API_KEY,
     },
 };
